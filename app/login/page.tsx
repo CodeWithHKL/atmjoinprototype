@@ -2,9 +2,17 @@
 
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import Link from "next/link"; // Import Link for navigation
+import { useRouter } from "next/navigation"; // Import useRouter for the button
 
 export default function Home() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+
+  const handleLogin = () => {
+    // Add login logic here if needed
+    router.push("/");
+  };
 
   return (
     <div 
@@ -24,7 +32,6 @@ export default function Home() {
         
         {/* Header Section */}
         <div className="flex flex-col items-center gap-3 text-center">
-          {/* Logo Container - Background removed */}
           <div className="flex h-24 w-24 items-center justify-center bg-transparent">
             <img 
               src="/atmjoin-logo.png" 
@@ -44,7 +51,6 @@ export default function Home() {
 
         {/* Login Form */}
         <div className="flex flex-col gap-5">
-          {/* Email Field */}
           <div className="flex flex-col gap-1.5">
             <label className="ml-1 text-[11px] font-bold uppercase tracking-wider text-zinc-300">
               Email
@@ -56,7 +62,6 @@ export default function Home() {
             />
           </div>
 
-          {/* Password Field */}
           <div className="flex flex-col gap-1.5">
             <label className="ml-1 text-[11px] font-bold uppercase tracking-wider text-zinc-300">
               Password
@@ -82,7 +87,11 @@ export default function Home() {
             </div>
           </div>
 
-          <button className="mt-2 flex h-12 items-center justify-center rounded-2xl bg-white text-xs font-black uppercase tracking-[0.2em] text-black shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98] hover:bg-zinc-200">
+          {/* Navigates to app/page.tsx */}
+          <button 
+            onClick={handleLogin}
+            className="mt-2 flex h-12 items-center justify-center rounded-2xl bg-white text-xs font-black uppercase tracking-[0.2em] text-black shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98] hover:bg-zinc-200"
+          >
             Log In
           </button>
         </div>
@@ -93,20 +102,21 @@ export default function Home() {
             System access is monitored. Unauthorized entry is prohibited under military code.
           </p>
           <div className="flex justify-center gap-6">
-            <a href="#" className="text-[11px] font-bold uppercase tracking-wider text-white hover:opacity-70">
+            {/* Navigates to app/signup */}
+            <Link href="/signup" className="text-[11px] font-bold uppercase tracking-wider text-white hover:opacity-70">
               Create Account
-            </a>
-            <a href="#" className="text-[11px] font-bold uppercase tracking-wider text-white hover:opacity-70">
+            </Link>
+            {/* Navigates to app/help */}
+            <Link href="/help" className="text-[11px] font-bold uppercase tracking-wider text-white hover:opacity-70">
               Helpdesk
-            </a>
+            </Link>
           </div>
         </div>
       </main>
 
-      {/* Version Tag */}
       <footer className="relative z-10 mt-8 flex flex-col items-center gap-1 opacity-60">
         <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-zinc-400">
-          v4.0.2-SECURE // NODES: 12-B
+          ATM JOIN V1.0.0
         </span>
       </footer>
     </div>
