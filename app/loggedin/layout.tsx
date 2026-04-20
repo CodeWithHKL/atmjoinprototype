@@ -1,15 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Sidebar from "@/components/Sidebar";
 
 export default function LoggedInLayout({ children }: { children: React.ReactNode }) {
-  // Ideally, you'd lift the 'isCollapsed' state here or use a Context/Zustand 
-  // for a true production app. For this prototype, let's assume a static 
-  // safe margin that accommodates both states.
-  
   return (
-    <div className="flex min-h-screen bg-zinc-950 text-white">
+    /* Added 'font-sans' to ensure Geist Sans is the primary typeface */
+    <div className="flex min-h-screen bg-zinc-950 text-white font-sans antialiased">
       <Sidebar />
       
       {/* Main Content Area: Responsive margin based on Sidebar */}
