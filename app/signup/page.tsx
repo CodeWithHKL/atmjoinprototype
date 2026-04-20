@@ -13,7 +13,7 @@ export default function Signup() {
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     // Logic for account creation goes here
-    router.push("/login");
+    router.push("/signup/verify"); // Updated navigation
   };
 
   return (
@@ -33,7 +33,7 @@ export default function Signup() {
         
         {/* Header Section */}
         <div className="flex flex-col items-center gap-2 text-center">
-          <div className="flex h-20 w-20 items-center justify-center bg-transparent mb-2">
+          <div className="flex h-24 w-24 items-center justify-center bg-transparent mb-2">
             <img 
               src="/atmjoin-logo.png" 
               alt="ATMJOIN Logo" 
@@ -145,7 +145,7 @@ export default function Signup() {
 
       <footer className="relative z-10 mb-8 flex flex-col items-center gap-1 opacity-40">
         <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-zinc-400">
-          SECURE ENROLLMENT PROTOCOL // ATMJOIN-SYS
+          ATMJOIN V1.0.0
         </span>
       </footer>
     </div>
