@@ -1,16 +1,21 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function Home() {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div 
       className="relative flex min-h-screen flex-col items-center justify-center bg-zinc-900 font-sans text-zinc-900 dark:text-zinc-100 p-4 overflow-hidden bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/military.png')" }} // Ensure the path to your image is correct
+      style={{ backgroundImage: "url('/military.png')" }}
     >
       
-      {/* Dark Overlay to ensure glass readability */}
+      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/40 z-0" />
 
-      {/* Dynamic Background Accents (Kept for extra depth) */}
+      {/* Dynamic Background Accents */}
       <div className="absolute top-[-5%] right-[-5%] h-[45%] w-[45%] rounded-full bg-white/5 blur-[100px] z-0" />
       <div className="absolute bottom-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-blue-500/10 blur-[120px] z-0" />
 
@@ -19,8 +24,13 @@ export default function Home() {
         
         {/* Header Section */}
         <div className="flex flex-col items-center gap-3 text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-lg">
-            <span className="text-black font-black text-xl tracking-tighter">UM</span>
+          {/* Logo Container - Background removed */}
+          <div className="flex h-16 w-16 items-center justify-center bg-transparent">
+            <img 
+              src="/atmjoin-logo.png" 
+              alt="ATMJOIN Logo" 
+              className="h-full w-full object-contain"
+            />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-white uppercase leading-none">
@@ -34,31 +44,42 @@ export default function Home() {
 
         {/* Login Form */}
         <div className="flex flex-col gap-5">
+          {/* Email Field */}
           <div className="flex flex-col gap-1.5">
             <label className="ml-1 text-[11px] font-bold uppercase tracking-wider text-zinc-300">
               Email
             </label>
             <input 
-              type="text" 
+              type="email" 
               placeholder="Enter your email"
               className="h-12 w-full rounded-2xl border border-white/10 bg-white/10 px-4 text-sm text-white outline-none focus:ring-2 focus:ring-white/20 transition-all placeholder:text-zinc-500"
             />
           </div>
 
+          {/* Password Field */}
           <div className="flex flex-col gap-1.5">
-            <div className="flex justify-between items-center">
-              <label className="ml-1 text-[11px] font-bold uppercase tracking-wider text-zinc-300">
-                Password
-              </label>
-              <a href="#" className="mr-1 text-[10px] uppercase font-bold text-zinc-400 hover:text-white transition-colors">
-                Forgot?
+            <label className="ml-1 text-[11px] font-bold uppercase tracking-wider text-zinc-300">
+              Password
+            </label>
+            <div className="relative">
+              <input 
+                type={showPassword ? "text" : "password"} 
+                placeholder="Enter your password"
+                className="h-12 w-full rounded-2xl border border-white/10 bg-white/10 pl-4 pr-12 text-sm text-white outline-none focus:ring-2 focus:ring-white/20 transition-all placeholder:text-zinc-500"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+            <div className="flex justify-end">
+              <a href="#" className="mr-1 mt-1 text-[10px] uppercase font-bold text-zinc-400 hover:text-white transition-colors tracking-tighter">
+                Forgot Password?
               </a>
             </div>
-            <input 
-              type="password" 
-              placeholder="••••••••"
-              className="h-12 w-full rounded-2xl border border-white/10 bg-white/10 px-4 text-sm text-white outline-none focus:ring-2 focus:ring-white/20 transition-all placeholder:text-zinc-500"
-            />
           </div>
 
           <button className="mt-2 flex h-12 items-center justify-center rounded-2xl bg-white text-xs font-black uppercase tracking-[0.2em] text-black shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98] hover:bg-zinc-200">
@@ -76,7 +97,7 @@ export default function Home() {
               Create Account
             </a>
             <a href="#" className="text-[11px] font-bold uppercase tracking-wider text-white hover:opacity-70">
-              Help Desk
+              Helpdesk
             </a>
           </div>
         </div>
