@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { ChevronRight, Shield, Target, Users, ArrowRight } from "lucide-react";
-import Navbar from "@/components/Navbar"; // Ensure your folder path matches
+import Navbar from "@/components/Navbar"; 
 
 export default function VisitorLanding() {
   return (
@@ -12,7 +12,8 @@ export default function VisitorLanding() {
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="relative flex min-h-screen items-center justify-center pt-20 overflow-hidden">
+      {/* Changed to flex-col and removed justify-center to handle flow better on small heights */}
+      <section className="relative flex min-h-screen flex-col items-center pt-32 pb-12 overflow-hidden">
         {/* Background Image */}
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat scale-105"
@@ -20,7 +21,8 @@ export default function VisitorLanding() {
         />
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 via-zinc-950/80 to-zinc-950" />
 
-        <div className="relative z-20 mx-auto max-w-5xl px-6 text-center">
+        {/* Main Content Area - flex-grow ensures it takes up space and pushes stats down */}
+        <div className="relative z-20 mx-auto flex flex-grow flex-col items-center justify-center max-w-5xl px-6 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 mb-8 backdrop-blur-md">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -49,8 +51,8 @@ export default function VisitorLanding() {
           </div>
         </div>
 
-        {/* Floating Stats Bar */}
-        <div className="absolute bottom-12 z-20 w-full px-6 hidden md:block">
+        {/* Stats Bar - Changed from absolute to relative flow with mt-auto */}
+        <div className="relative z-20 w-full px-6 mt-12 hidden md:block">
           <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-black/40 p-8 backdrop-blur-xl">
             <div className="grid grid-cols-3 gap-8 text-center">
               <div>
