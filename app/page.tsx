@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { ChevronRight, Shield, Target, Users, ArrowRight, ClipboardCheck, GraduationCap, HeartPulse, Building2 } from "lucide-react";
 import Navbar from "@/components/Navbar"; 
-import Footer from "@/components/Footer"; // Imported Footer
+import Footer from "@/components/Footer";
 
 export default function VisitorLanding() {
   return (
@@ -48,27 +48,42 @@ export default function VisitorLanding() {
           </div>
         </div>
 
-        <div className="relative z-20 w-full px-6 mt-12 hidden md:block">
-          <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-black/30 p-8 backdrop-blur-xl">
-            <div className="grid grid-cols-3 gap-8 text-center">
-              <div>
-                <div className="text-2xl font-black text-white">250+</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mt-1">Specialized Roles</div>
-              </div>
-              <div className="border-x border-white/10">
-                <div className="text-2xl font-black text-white">100%</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mt-1">Digital Processing</div>
-              </div>
-              <div>
-                <div className="text-2xl font-black text-white">24/7</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mt-1">Command Support</div>
-              </div>
+        {/* BRANCH LOGOS SECTION - FIXED FOR MOBILE VISIBILITY */}
+        <div className="relative z-20 w-full px-6 mt-12 block">
+          <div className="mx-auto max-w-5xl">
+            {/* Changed grid-cols-3 to grid-cols-1 on mobile and md:grid-cols-3 for desktop */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+              {[
+                { id: "TDM", logo: "/TDM_Logo.png", name: "Tentera Darat", color: "border-emerald-500/20 bg-emerald-500/5 shadow-emerald-500/5" },
+                { id: "TLDM", logo: "/TLDM_Logo.png", name: "Tentera Laut", color: "border-blue-500/20 bg-blue-500/5 shadow-blue-500/5" },
+                { id: "TUDM", logo: "/TUDM_Logo.png", name: "Tentera Udara", color: "border-cyan-500/20 bg-cyan-500/5 shadow-cyan-500/5" }
+              ].map((branch) => (
+                <div 
+                  key={branch.id}
+                  className={`group relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-white/40 ${branch.color} hover:shadow-2xl`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="relative z-10">
+                      <div className="text-2xl font-black tracking-tighter text-white">{branch.id}</div>
+                      <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-300 group-hover:text-white transition-colors">
+                        {branch.name}
+                      </div>
+                    </div>
+                    <img 
+                      src={branch.logo} 
+                      alt={branch.id} 
+                      className="h-12 md:h-14 w-auto object-contain transition-all duration-500 group-hover:scale-110 drop-shadow-md" 
+                    />
+                  </div>
+                  <div className="absolute -bottom-4 -right-4 h-24 w-24 rounded-full bg-white/5 blur-3xl transition-opacity group-hover:opacity-100" />
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* RECRUITMENT JOURNEY SECTION WITH PICTURE */}
+      {/* RECRUITMENT JOURNEY SECTION */}
       <section className="relative py-32 px-6 bg-zinc-950 overflow-hidden">
         <div className="relative z-20 mx-auto max-w-7xl">
           <div className="mb-16 text-center md:text-left">
@@ -77,13 +92,11 @@ export default function VisitorLanding() {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left side: Image */}
             <div className="relative rounded-[3rem] overflow-hidden aspect-video lg:aspect-square bg-zinc-900 border border-white/10 shadow-2xl">
               <img src="/ATM_Rally.jpeg" alt="ATM Rally" className="w-full h-full object-cover opacity-80" />
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 to-transparent" />
             </div>
 
-            {/* Right side: Pipeline Steps */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 { step: "01", label: "Apply", desc: "Submit digital application via portal", icon: <ClipboardCheck size={20}/> },
