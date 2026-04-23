@@ -7,9 +7,9 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
+  { name: "ATM Branches", href: "/branches" },
   { name: "Careers", href: "/careers" },
-  { name: "Compare Branches", href: "/compare" },
-  { name: "Find Your Fit", href: "/quiz" },
+  { name: "Eligibility", href: "/eligibility" },
   { name: "Guide", href: "/guide" },
   { name: "FAQ", href: "/faq" },
 ];
@@ -24,6 +24,23 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Helper function to determine if a link is active
+  const checkActive = (href: string) => {
+    // 1. Exact match for Home
+    if (href === "/") return pathname === "/";
+    
+    // 2. Branch logic: Highlight if path starts with /branches
+    if (href === "/branches") return pathname.startsWith("/branches");
+    
+    // 3. Eligibility logic: Highlight if on /eligibility OR inside /eligibility/assessment
+    if (href === "/eligibility") {
+      return pathname === "/eligibility" || pathname.startsWith("/eligibility/assessment");
+    }
+    
+    // 4. Default exact match for others
+    return pathname === href;
+  };
 
   return (
     <nav className="fixed top-0 z-50 w-full px-4 py-6 transition-all duration-300">
@@ -40,7 +57,8 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = checkActive(link.href);
+              
               return (
                 <Link
                   key={link.name}
@@ -80,7 +98,8 @@ export default function Navbar() {
           <div className="lg:hidden absolute top-full left-0 mt-2 w-full animate-in fade-in slide-in-from-top-4">
             <div className="mx-4 flex flex-col gap-4 rounded-2xl border border-white/10 bg-black/95 p-6 backdrop-blur-xl">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href;
+                const isActive = checkActive(link.href);
+                
                 return (
                   <Link
                     key={link.name}
