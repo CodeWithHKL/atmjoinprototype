@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ChevronRight, Shield, Target, Users, ArrowRight, ClipboardCheck, GraduationCap, HeartPulse, Building2 } from "lucide-react";
+import { ChevronRight, Shield, Target, Users, ArrowRight, ClipboardCheck, GraduationCap, HeartPulse, Building2, Play } from "lucide-react";
 import Navbar from "@/components/Navbar"; 
 import Footer from "@/components/Footer";
 
@@ -48,10 +48,9 @@ export default function VisitorLanding() {
           </div>
         </div>
 
-        {/* BRANCH LOGOS SECTION - FIXED FOR MOBILE VISIBILITY */}
+        {/* BRANCH LOGOS SECTION */}
         <div className="relative z-20 w-full px-6 mt-12 block">
           <div className="mx-auto max-w-5xl">
-            {/* Changed grid-cols-3 to grid-cols-1 on mobile and md:grid-cols-3 for desktop */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
               {[
                 { id: "TDM", logo: "/TDM_Logo.png", name: "Tentera Darat", color: "border-emerald-500/20 bg-emerald-500/5 shadow-emerald-500/5" },
@@ -78,6 +77,56 @@ export default function VisitorLanding() {
                   <div className="absolute -bottom-4 -right-4 h-24 w-24 rounded-full bg-white/5 blur-3xl transition-opacity group-hover:opacity-100" />
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT ATM SECTION */}
+      <section className="relative py-24 px-6 bg-zinc-950">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-xs font-black uppercase tracking-[0.5em] text-emerald-500 mb-4 text-center lg:text-left">The Guardian</h2>
+              <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-8 leading-tight text-white text-center lg:text-left">
+                Malaysian Armed Forces: <span className="text-zinc-500">Sovereignty and Pride.</span>
+              </h3>
+              <div className="space-y-6 text-zinc-400 text-lg leading-relaxed text-center lg:text-left">
+                <p>
+                  The Malaysian Armed Forces (ATM) stand as the bedrock of national stability, protecting our borders and people across land, sea, and air. 
+                </p>
+                <p>
+                  Built on a foundation of discipline, courage, and technological superiority, we offer more than just a career—we offer a lifetime of honor and a chance to shape the future of our nation.
+                </p>
+                <div className="pt-4 flex flex-col md:flex-row gap-8 items-center lg:items-start justify-center lg:justify-start">
+                   <div className="flex flex-col items-center lg:items-start">
+                      <span className="text-3xl font-black text-white tracking-tighter">1933</span>
+                      <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-500">Legacy Established</span>
+                   </div>
+                   <div className="h-8 w-px bg-white/10 hidden md:block"></div>
+                   <div className="flex flex-col items-center lg:items-start">
+                      <span className="text-3xl font-black text-white tracking-tighter">3 Branches</span>
+                      <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-500">Unified Defense</span>
+                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-r from-emerald-500/20 to-blue-500/20 opacity-75 blur-2xl transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
+              <div className="relative aspect-video rounded-[2.5rem] overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl">
+                <video 
+                  className="w-full h-full object-cover"
+                  controls
+                  autoPlay
+                  muted
+                  playsInline
+                  poster="/military.png"
+                >
+                  <source src="/Promo.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
             </div>
           </div>
         </div>
@@ -118,9 +167,53 @@ export default function VisitorLanding() {
         </div>
       </section>
 
+      {/* BENEFITS SECTION */}
+      <section className="py-24 px-6 bg-zinc-900/40 border-t border-white/5">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="flex flex-col">
+              <h2 className="text-xs font-black uppercase tracking-[0.5em] text-emerald-500 mb-4 text-center lg:text-left">Incentives</h2>
+              <h3 className="text-5xl font-black uppercase tracking-tighter mb-8 leading-none text-white text-center lg:text-left">Beyond the <span className="text-zinc-400">Uniform.</span></h3>
+              
+              <div className="relative mb-8 rounded-[2rem] overflow-hidden aspect-video bg-zinc-800 shadow-2xl block lg:hidden">
+                 <img src="/militaryfamily.png" alt="Military Training" className="w-full h-full object-cover opacity-80" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 to-transparent" />
+              </div>
+
+              <div className="space-y-6">
+                {[
+                  { title: "Education", desc: "Fully funded degree and diploma programs at military academies.", icon: <GraduationCap className="text-emerald-400"/> },
+                  { title: "Medical", desc: "Comprehensive healthcare for you and your immediate family.", icon: <HeartPulse className="text-blue-400"/> },
+                  { title: "Housing", desc: "Competitive allowances and priority housing across strategic bases.", icon: <Building2 className="text-purple-400"/> },
+                ].map((benefit, i) => (
+                  <div key={i} className="flex gap-4 p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm group hover:border-white/20 transition-all">
+                    <div className="mt-1 transition-transform group-hover:scale-110">{benefit.icon}</div>
+                    <div>
+                      <h4 className="font-bold uppercase tracking-widest text-sm mb-1">{benefit.title}</h4>
+                      <p className="text-zinc-400 text-sm">{benefit.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative rounded-[3rem] overflow-hidden aspect-square bg-zinc-800 shadow-2xl hidden lg:block">
+               <img src="/militaryfamily.png" alt="Military Training" className="w-full h-full object-cover opacity-80" />
+               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 to-transparent" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* QUICK ACTIONS SECTION */}
       <section className="relative z-20 py-24 px-6 bg-zinc-950/50">
         <div className="mx-auto max-w-7xl">
+          {/* NEW HEADER FOR EXPLORE SECTION */}
+          <div className="mb-16 text-center md:text-left">
+            <h2 className="text-xs font-black uppercase tracking-[0.5em] text-emerald-500 mb-4">Explore</h2>
+            <h3 className="text-5xl font-black uppercase tracking-tighter text-white">Explore <span className="text-zinc-400">More.</span></h3>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Link href="/eligibility" className="group p-8 rounded-[2.5rem] bg-zinc-900 border border-white/5 hover:border-emerald-500/30 transition-all cursor-pointer">
               <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-6">
@@ -148,37 +241,6 @@ export default function VisitorLanding() {
               <p className="text-zinc-400 text-sm mb-6">Step-by-step instructions on documentation and requirements.</p>
               <ArrowRight className="text-purple-500 group-hover:translate-x-2 transition-transform" />
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* BENEFITS SECTION */}
-      <section className="py-24 px-6 bg-zinc-900/40 border-t border-white/5">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-xs font-black uppercase tracking-[0.5em] text-emerald-500 mb-4">Incentives</h2>
-              <h3 className="text-5xl font-black uppercase tracking-tighter mb-8 leading-none text-white">Beyond the <span className="text-zinc-400">Uniform.</span></h3>
-              <div className="space-y-6">
-                {[
-                  { title: "Education", desc: "Fully funded degree and diploma programs at military academies.", icon: <GraduationCap className="text-emerald-400"/> },
-                  { title: "Medical", desc: "Comprehensive healthcare for you and your immediate family.", icon: <HeartPulse className="text-blue-400"/> },
-                  { title: "Housing", desc: "Competitive allowances and priority housing across strategic bases.", icon: <Building2 className="text-purple-400"/> },
-                ].map((benefit, i) => (
-                  <div key={i} className="flex gap-4 p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm group hover:border-white/20 transition-all">
-                    <div className="mt-1 transition-transform group-hover:scale-110">{benefit.icon}</div>
-                    <div>
-                      <h4 className="font-bold uppercase tracking-widest text-sm mb-1">{benefit.title}</h4>
-                      <p className="text-zinc-400 text-sm">{benefit.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="relative rounded-[3rem] overflow-hidden aspect-square bg-zinc-800 shadow-2xl">
-               <img src="/militaryfamily.png" alt="Military Training" className="w-full h-full object-cover opacity-80" />
-               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 to-transparent" />
-            </div>
           </div>
         </div>
       </section>
