@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { 
-  LayoutDashboard, FileText, User, Target, 
-  Bell, LifeBuoy, Settings, LogOut, ChevronDown,
+  LayoutDashboard, FileText, User, Target, List,
+  Bell, LifeBuoy, Settings, LogOut, ChevronDown, MessageCircleQuestion,
   PanelLeftClose, PanelLeftOpen, Menu, X 
 } from "lucide-react";
 
@@ -16,35 +16,39 @@ interface SidebarProps {
 
 const menuItems = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/loggedin" },
+    { 
+    name: "Recruitment List", 
+    icon: List,
+    href: "/loggedin/recruitment",
+  },
   { 
     name: "Applications", 
     icon: FileText,
     rootPath: "/loggedin/applications",
     subItems: [
-      { name: "New Application", href: "/loggedin/applications/new" },
-      { name: "My Application", href: "/loggedin/applications/mine" },
-      { name: "Status", href: "/loggedin/applications/status" },
+      { name: "My Application", href: "/loggedin/applications/myapply" },
+      { name: "Guide", href: "/loggedin/applications/guide" },
     ]
   },
   { 
     name: "Profile", 
     icon: User,
-    rootPath: "/loggedin/profile",
-    subItems: [
-      { name: "View Profile", href: "/loggedin/profile" },
-      { name: "Edit Profile", href: "/loggedin/profile/edit" },
-    ]
+    href: "/loggedin/profile",
   },
   { 
-    name: "Fit & Eligibility", 
+    name: "Careers", 
     icon: Target,
-    rootPath: "/loggedin/fit",
+    rootPath: "/loggedin/carebility",
     subItems: [
-      { name: "Fit Quiz", href: "/loggedin/fit/quiz" },
-      { name: "Results", href: "/loggedin/fit/results" },
+      { name: "Branches", href: "/loggedin/carebility/branches" },
+      { name: "Eligibility", href: "/loggedin/carebility/eligibility" },
+      { name: "Role", href: "/loggedin/carebility/role" },
+      { name: "Benefits", href: "/loggedin/carebility/benefits" },
+      { name: "Find Your Fit", href: "/loggedin/carebility/assessment" },
     ]
   },
   { name: "Notifications", icon: Bell, href: "/loggedin/notifications" },
+  { name: "FAQ", icon: MessageCircleQuestion, href: "/loggedin/faq" },
   { name: "Help & Support", icon: LifeBuoy, href: "/loggedin/help" },
   { name: "Settings", icon: Settings, href: "/loggedin/settings" },
 ];

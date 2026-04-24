@@ -5,9 +5,10 @@ import Link from "next/link";
 import { 
   ChevronLeft, ClipboardCheck, UserCheck, 
   Stethoscope, ShieldAlert, GraduationCap, 
-  MapPin, ArrowRight 
+  ArrowRight 
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const steps = [
   {
@@ -49,31 +50,35 @@ const steps = [
 
 export default function GuidePage() {
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-emerald-500/30 pb-20">
+    <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-emerald-500/30">
       
       {/* GLOBAL NAVIGATION */}
       <Navbar />
 
-      {/* HEADER - Adjusted padding for fixed Navbar */}
-      <header className="relative pt-44 pb-16 px-6">
-        <div className="absolute inset-0 z-0 opacity-10 bg-[url('/military.png')] bg-cover bg-fixed grayscale pointer-events-none" />
-        <div className="relative z-10 mx-auto max-w-7xl">
+      {/* HEADER SECTION - Matched to other pages styling */}
+      <header className="relative pt-48 pb-16 px-6 overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-20 grayscale bg-[url('/military.png')] bg-cover bg-center" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-950" />
+        
+        <div className="relative z-20 mx-auto max-w-7xl">
           <Link href="/" className="group inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white mb-8 transition-colors">
             <ChevronLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
             Back to Home
           </Link>
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none">
-            Enlistment <span className="text-emerald-500">Roadmap</span>
+          
+          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
+            Enlistment <span className="text-emerald-500">Roadmap.</span>
           </h1>
-          <p className="mt-4 max-w-xl text-zinc-400 font-medium">
+          
+          <p className="mt-4 max-w-xl text-zinc-400">
             A comprehensive guide to the transition from civilian to military personnel. 
-            Follow these phases to ensure a successful application.
+            Follow these phases to ensure a successful application through the official ATM protocol.
           </p>
         </div>
       </header>
 
       {/* TIMELINE SECTION */}
-      <main className="relative z-10 mx-auto max-w-4xl px-6">
+      <main className="relative z-10 mx-auto max-w-4xl px-6 pb-24">
         <div className="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-emerald-500 before:via-zinc-800 before:to-transparent">
           
           {steps.map((step, index) => (
@@ -140,13 +145,7 @@ export default function GuidePage() {
         </div>
       </main>
 
-      {/* FOOTER INFO */}
-      <div className="mt-20 text-center opacity-20 pb-10">
-        <div className="flex items-center justify-center gap-2 mb-2">
-            <MapPin size={12} />
-            <span className="text-[9px] font-bold uppercase tracking-[0.3em]">Global Enlistment Network</span>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }

@@ -1,156 +1,155 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { 
-  Shield, 
+  ChevronLeft, 
+  KeyRound, 
   Bell, 
   Monitor, 
-  Smartphone, 
-  Lock, 
-  Globe, 
-  Trash2, 
-  ShieldCheck,
-  ChevronRight
+  LogOut, 
+  ShieldCheck, 
+  ChevronRight,
+  Circle,
+  Smartphone
 } from "lucide-react";
 
 export default function SettingsPage() {
   const [notifications, setNotifications] = useState(true);
-  const [twoFactor, setTwoFactor] = useState(true);
+  const [otpEnabled, setOtpEnabled] = useState(false);
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
+    <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-emerald-500/30 flex flex-col">
       
       {/* HEADER */}
-      <div className="mb-12">
-        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 block">
-          System Config // Core Settings
-        </span>
-        <h1 className="mt-2 text-3xl font-black uppercase tracking-tight text-white">
-          Account <span className="text-zinc-500">Preferences</span>
-        </h1>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <header className="relative pt-48 pb-16 px-6 overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-20 grayscale bg-[url('/military.png')] bg-cover bg-center" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-950" />
         
-        {/* LEFT: SETTINGS NAVIGATION (VISUAL ONLY) */}
-        <div className="lg:col-span-4 space-y-2">
-          {[
-            { label: "Security & Access", icon: Shield, active: true },
-            { label: "Notifications", icon: Bell, active: false },
-            { label: "Device Management", icon: Smartphone, active: false },
-            { label: "Privacy", icon: Lock, active: false },
-            { label: "Language & Region", icon: Globe, active: false },
-          ].map((item, i) => (
-            <button 
-              key={i}
-              className={`w-full flex items-center justify-between p-4 rounded-2xl transition-all ${
-                item.active 
-                ? "bg-white text-black" 
-                : "text-zinc-500 hover:bg-white/5 hover:text-white"
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <item.icon size={18} />
-                <span className="text-[10px] font-black uppercase tracking-widest">{item.label}</span>
-              </div>
-              <ChevronRight size={14} className={item.active ? "opacity-100" : "opacity-0"} />
-            </button>
-          ))}
-        </div>
-
-        {/* RIGHT: SETTINGS CONTENT */}
-        <div className="lg:col-span-8 space-y-8">
+        <div className="relative z-20 mx-auto max-w-7xl">
+          <Link href="/loggedin/dashboard" className="group inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white mb-8 transition-colors">
+            <ChevronLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
+            Back to Dashboard
+          </Link>
           
-          {/* SECTION: SECURITY */}
-          <div className="p-8 rounded-[2.5rem] bg-zinc-900 border border-white/5">
-            <h3 className="text-sm font-bold uppercase tracking-tight text-white mb-6 flex items-center gap-3">
-              <ShieldCheck className="text-emerald-500" size={20} /> Authentication Security
-            </h3>
+          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
+            User <span className="text-emerald-500">Settings.</span>
+          </h1>
+          <p className="mt-4 text-zinc-400 font-medium">Manage your security credentials and communication preferences.</p>
+        </div>
+      </header>
+
+      <main className="relative z-10 flex-grow mx-auto max-w-3xl w-full px-6 pb-24">
+        
+        <div className="space-y-4">
+          
+          {/* CHANGE PASSWORD */}
+          <button className="w-full p-6 rounded-[2rem] bg-zinc-900 border border-white/5 hover:border-emerald-500/20 transition-all group flex items-center justify-between text-left">
+            <div className="flex items-center gap-5">
+              <div className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center text-zinc-400 group-hover:text-emerald-400 transition-colors">
+                <KeyRound size={22} />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold uppercase tracking-wide">Change Password</h3>
+                <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-black mt-1">
+                  Last updated <span className="text-zinc-300">32 days ago</span>
+                </p>
+              </div>
+            </div>
+            <ChevronRight size={18} className="text-zinc-700 group-hover:text-white transition-colors" />
+          </button>
+
+          {/* OTP / 2FA TOGGLE */}
+          <div className={`w-full p-6 rounded-[2rem] border transition-all duration-300 ${otpEnabled ? 'bg-emerald-500/5 border-emerald-500/30' : 'bg-zinc-900 border-white/5'}`}>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-5">
+                <div className={`h-12 w-12 rounded-2xl flex items-center justify-center transition-colors ${otpEnabled ? 'bg-emerald-500 text-white' : 'bg-white/5 text-zinc-400'}`}>
+                  <Smartphone size={22} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wide">Two-Factor Auth (OTP)</h3>
+                  <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-black mt-1">
+                    Secure login via Email/SMS code
+                  </p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setOtpEnabled(!otpEnabled)}
+                className={`relative w-14 h-7 rounded-full transition-colors duration-300 flex items-center px-1 ${otpEnabled ? 'bg-emerald-500' : 'bg-zinc-800'}`}
+              >
+                <div className={`h-5 w-5 bg-white rounded-full transition-transform duration-300 ${otpEnabled ? 'translate-x-7' : 'translate-x-0'}`} />
+              </button>
+            </div>
+          </div>
+
+          {/* NOTIFICATION TOGGLE */}
+          <div className="w-full p-6 rounded-[2rem] bg-zinc-900 border border-white/5 flex items-center justify-between">
+            <div className="flex items-center gap-5">
+              <div className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center text-zinc-400">
+                <Bell size={22} />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold uppercase tracking-wide">Email Notifications</h3>
+                <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-black mt-1">
+                  Receive updates on application status
+                </p>
+              </div>
+            </div>
+            <button 
+              onClick={() => setNotifications(!notifications)}
+              className={`relative w-14 h-7 rounded-full transition-colors duration-300 flex items-center px-1 ${notifications ? 'bg-emerald-500' : 'bg-zinc-800'}`}
+            >
+              <div className={`h-5 w-5 bg-white rounded-full transition-transform duration-300 ${notifications ? 'translate-x-7' : 'translate-x-0'}`} />
+            </button>
+          </div>
+
+          {/* ACTIVE SESSIONS */}
+          <div className="w-full p-6 rounded-[2rem] bg-zinc-900 border border-white/5">
+            <div className="flex items-center gap-5 mb-6">
+              <div className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center text-zinc-400">
+                <Monitor size={22} />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold uppercase tracking-wide">Active Sessions</h3>
+                <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-black mt-1">
+                  Connected Devices
+                </p>
+              </div>
+            </div>
             
-            <div className="space-y-6">
-              <div className="flex items-center justify-between py-4 border-b border-white/5">
-                <div>
-                  <p className="text-xs font-bold text-white uppercase">Two-Factor Authentication</p>
-                  <p className="text-[10px] text-zinc-500 mt-1 uppercase font-bold tracking-wider">Secure your account with SMS/Email verification</p>
+            <div className="ml-16 p-4 rounded-2xl bg-black/40 border border-white/5 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex flex-col">
+                  <span className="text-xs font-bold">Chrome on Windows</span>
+                  <span className="text-[9px] text-emerald-500 font-black uppercase tracking-tighter flex items-center gap-1.5">
+                    <Circle size={6} fill="currentColor" className="animate-pulse" /> Current Session
+                  </span>
                 </div>
-                <button 
-                  onClick={() => setTwoFactor(!twoFactor)}
-                  className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${twoFactor ? 'bg-emerald-500' : 'bg-zinc-700'}`}
-                >
-                  <div className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ${twoFactor ? 'translate-x-6' : ''}`} />
-                </button>
               </div>
-
-              <div className="flex items-center justify-between py-4">
-                <div>
-                  <p className="text-xs font-bold text-white uppercase">Change Access Password</p>
-                  <p className="text-[10px] text-zinc-500 mt-1 uppercase font-bold tracking-wider">Last updated 32 days ago</p>
-                </div>
-                <button className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-zinc-300 hover:text-white transition-all">
-                  Update
-                </button>
-              </div>
+              <ShieldCheck size={16} className="text-emerald-500/50" />
             </div>
           </div>
 
-          {/* SECTION: COMMUNICATIONS */}
-          <div className="p-8 rounded-[2.5rem] bg-zinc-900/50 border border-white/5">
-            <h3 className="text-sm font-bold uppercase tracking-tight text-white mb-6 flex items-center gap-3">
-              <Bell className="text-blue-400" size={20} /> Signal Notifications
-            </h3>
-            
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-bold text-white uppercase">Push Transmissions</p>
-                  <p className="text-[10px] text-zinc-500 mt-1 uppercase font-bold tracking-wider">Receive real-time application updates</p>
-                </div>
-                <button 
-                  onClick={() => setNotifications(!notifications)}
-                  className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${notifications ? 'bg-blue-500' : 'bg-zinc-700'}`}
-                >
-                  <div className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ${notifications ? 'translate-x-6' : ''}`} />
-                </button>
-              </div>
+          {/* LOG OUT */}
+          <button className="w-full p-6 rounded-[2rem] bg-red-500/5 border border-red-500/10 hover:bg-red-500 hover:text-white transition-all group flex items-center gap-5 text-left mt-8">
+            <div className="h-12 w-12 rounded-2xl bg-red-500/10 group-hover:bg-white/20 flex items-center justify-center text-red-500 group-hover:text-white transition-colors">
+              <LogOut size={22} />
             </div>
-          </div>
-
-          {/* SECTION: SYSTEM ACCESS */}
-          <div className="p-8 rounded-[2.5rem] bg-zinc-900/30 border border-white/5">
-            <h3 className="text-sm font-bold uppercase tracking-tight text-white mb-6 flex items-center gap-3">
-              <Monitor className="text-zinc-500" size={20} /> Active Sessions
-            </h3>
-            <div className="space-y-4">
-               <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5">
-                  <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-xl bg-zinc-800 flex items-center justify-center text-emerald-500">
-                      <Monitor size={18} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black text-white uppercase tracking-widest">Chrome on MacOS</p>
-                      <p className="text-[9px] text-zinc-600 font-bold uppercase">Kuala Lumpur • Current Session</p>
-                    </div>
-                  </div>
-                  <span className="text-[8px] font-black uppercase text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20">Active</span>
-               </div>
+            <div>
+              <h3 className="text-sm font-bold uppercase tracking-wide">Terminate Session</h3>
+              <p className="text-[10px] uppercase tracking-widest font-black opacity-60">Log out from all devices</p>
             </div>
-          </div>
-
-          {/* DANGER ZONE */}
-          <div className="pt-8 border-t border-white/5">
-             <button className="flex items-center gap-3 text-red-500/50 hover:text-red-500 transition-all group">
-                <div className="h-10 w-10 rounded-xl bg-red-500/5 border border-red-500/10 flex items-center justify-center group-hover:bg-red-500/20">
-                  <Trash2 size={18} />
-                </div>
-                <div className="text-left">
-                  <p className="text-[10px] font-black uppercase tracking-widest">Deactivate Personnel File</p>
-                  <p className="text-[9px] font-bold uppercase opacity-60">This will permanently delete your data</p>
-                </div>
-             </button>
-          </div>
+          </button>
 
         </div>
-      </div>
+
+        {/* SECURITY FOOTER */}
+        <div className="mt-12 text-center p-8 border-t border-white/5">
+          <p className="text-[9px] text-zinc-600 uppercase tracking-[0.4em] font-black">
+            End-to-End Encryption Enabled | ATM Security Protocol v4.0
+          </p>
+        </div>
+      </main>
     </div>
   );
 }

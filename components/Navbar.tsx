@@ -32,13 +32,16 @@ export default function Navbar() {
     
     // 2. Branch logic: Highlight if path starts with /branches
     if (href === "/branches") return pathname.startsWith("/branches");
+
+    // 3. Careers logic: Highlight if path starts with /careers (includes roles, benefits, ranks)
+    if (href === "/careers") return pathname.startsWith("/careers");
     
-    // 3. Eligibility logic: Highlight if on /eligibility OR inside /eligibility/assessment
+    // 4. Eligibility logic: Highlight if on /eligibility OR inside /eligibility/assessment
     if (href === "/eligibility") {
       return pathname === "/eligibility" || pathname.startsWith("/eligibility/assessment");
     }
     
-    // 4. Default exact match for others
+    // 5. Default exact match for others
     return pathname === href;
   };
 

@@ -194,6 +194,15 @@ export default function VisitorLanding() {
                     </div>
                   </div>
                 ))}
+
+                {/* NEW BUTTON ADDED HERE */}
+                <Link 
+                  href="/careers/benefits" 
+                  className="flex items-center justify-center gap-3 w-full h-14 rounded-2xl border border-white/10 bg-white/5 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-emerald-500 hover:text-black hover:border-emerald-500 transition-all group"
+                >
+                  View Full Salary & Allowance
+                  <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+                </Link>
               </div>
             </div>
 
