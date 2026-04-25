@@ -5,7 +5,8 @@ import Link from "next/link";
 import { 
   ChevronLeft, Search, Filter, CheckCircle2, XCircle, 
   Clock, ShieldCheck, Brain, Stethoscope, Activity, Users,
-  Target, GraduationCap, ClipboardCheck, Award, ArrowUpDown, ChevronUp, ChevronDown
+  Target, GraduationCap, ClipboardCheck, Award, ArrowUpDown, ChevronUp, ChevronDown,
+  Zap
 } from "lucide-react";
 
 type Phase = 'Verification' | 'Aptitude' | 'Medical' | 'Physical' | 'Interview' | 'Overall';
@@ -107,15 +108,15 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
           </div>
           
           <div className="flex gap-4">
-             <div className="text-right">
+              <div className="text-right">
                 <p className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">Total Candidates</p>
                 <p className="text-xl font-black italic">1,240</p>
-             </div>
-             <div className="w-[1px] h-10 bg-white/10" />
-             <div className="text-right">
+              </div>
+              <div className="w-[1px] h-10 bg-white/10" />
+              <div className="text-right">
                 <p className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">In Current Phase</p>
                 <p className="text-xl font-black italic text-emerald-500">{applicantData[activePhase].length}</p>
-             </div>
+              </div>
           </div>
         </div>
       </header>
@@ -260,6 +261,24 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
           </div>
         </div>
       </section>
+
+      {/* PHASE CONTROL HEADER */}
+      <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-6 px-4">
+        <div className="flex items-center gap-4">
+          <div className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
+          <h3 className="text-sm font-black uppercase tracking-[0.3em]">
+            Current Phase : <span className="text-rose-500">Medical</span>
+          </h3>
+        </div>
+        
+        <button className="group relative flex items-center gap-3 px-8 py-3 bg-white text-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95">
+          <div className="absolute inset-0 bg-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+          <Zap size={14} className="relative z-10 group-hover:fill-black" />
+          <span className="relative z-10 text-[10px] font-black uppercase tracking-widest group-hover:text-white transition-colors">
+            Finalize Current Phase
+          </span>
+        </button>
+      </div>
 
       {/* PHASE TOGGLE (Tabs) */}
       <div className="flex justify-center mb-10">
