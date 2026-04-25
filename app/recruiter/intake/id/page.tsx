@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { 
   ChevronLeft, Search, Filter, CheckCircle2, XCircle, 
   Clock, ShieldCheck, Brain, Stethoscope, Activity, Users,
-  Target, GraduationCap, ClipboardCheck, Award
+  Target, GraduationCap, ClipboardCheck, Award, ArrowUpDown, ChevronUp, ChevronDown
 } from "lucide-react";
 
 type Phase = 'Verification' | 'Aptitude' | 'Medical' | 'Physical' | 'Interview' | 'Overall';
@@ -19,150 +19,73 @@ const phaseConfig = {
   Overall: { label: "Final Selection", icon: Award, color: "bg-indigo-600" },
 };
 
-// Mock Data for Applicants
 const applicantData: Record<Phase, any[]> = {
   Verification: [
-    { 
-      name: "Ahmad Zaki", 
-      id: "APP-001", 
-      status: "Passed", 
-      metric: "CGPA 3.8", 
-      date: "12 APR",
-      verification_id: "VER-9901",
-      document_status: "valid",
-      background_check_status: "Cleared",
-      remarks: "All docs verified",
-      verified_by: "Admin_Siti",
-      date_verified: "12 APR 2024"
-    },
-    { 
-      name: "Sarah Connor", 
-      id: "APP-002", 
-      status: "Passed", 
-      metric: "CGPA 3.5", 
-      date: "12 APR",
-      verification_id: "VER-9902",
-      document_status: "valid",
-      background_check_status: "Cleared",
-      remarks: "N/A",
-      verified_by: "Admin_Siti",
-      date_verified: "12 APR 2024"
-    },
-    { 
-      name: "M. Izzat", 
-      id: "APP-003", 
-      status: "Flagged", 
-      metric: "Incomplete Doc", 
-      date: "13 APR",
-      verification_id: "VER-9903",
-      document_status: "invalid",
-      background_check_status: "Pending",
-      remarks: "Missing IC Copy",
-      verified_by: "Admin_Abu",
-      date_verified: "13 APR 2024"
-    },
+    { name: "Ahmad Zaki", id: "APP-001", status: "Passed", metric: "CGPA 3.8", date: "12 APR", verification_id: "VER-9901", document_status: "valid", background_check_status: "Cleared", remarks: "All docs verified", verified_by: "Admin_Siti", date_verified: "12 APR 2024" },
+    { name: "Sarah Connor", id: "APP-002", status: "Passed", metric: "CGPA 3.5", date: "12 APR", verification_id: "VER-9902", document_status: "valid", background_check_status: "Cleared", remarks: "N/A", verified_by: "Admin_Siti", date_verified: "12 APR 2024" },
+    { name: "M. Izzat", id: "APP-003", status: "Flagged", metric: "Incomplete Doc", date: "13 APR", verification_id: "VER-9903", document_status: "invalid", background_check_status: "Pending", remarks: "Missing IC Copy", verified_by: "Admin_Abu", date_verified: "13 APR 2024" },
   ],
   Aptitude: [
-    { 
-      name: "Ahmad Zaki", 
-      id: "APP-001", 
-      status: "Passed", 
-      metric: "Score: 92%", 
-      date: "15 APR",
-      aptitude_id: "APT-7701",
-      applicant_id: "APP-001",
-      test_score: "92/100",
-      percentile: "98th",
-      pass_fail: "Pass",
-      test_date: "15 APR 2024"
-    },
-    { 
-      name: "Sarah Connor", 
-      id: "APP-002", 
-      status: "Failed", 
-      metric: "Score: 45%", 
-      date: "15 APR",
-      aptitude_id: "APT-7702",
-      applicant_id: "APP-002",
-      test_score: "45/100",
-      percentile: "32nd",
-      pass_fail: "Fail",
-      test_date: "15 APR 2024"
-    },
+    { name: "Ahmad Zaki", id: "APP-001", status: "Passed", metric: "Score: 92%", date: "15 APR", aptitude_id: "APT-7701", applicant_id: "APP-001", test_score: "92/100", percentile: "98th", pass_fail: "Pass", test_date: "15 APR 2024" },
+    { name: "Sarah Connor", id: "APP-002", status: "Failed", metric: "Score: 45%", date: "15 APR", aptitude_id: "APT-7702", applicant_id: "APP-002", test_score: "45/100", percentile: "32nd", pass_fail: "Fail", test_date: "15 APR 2024" },
   ],
   Medical: [
-    { 
-      name: "Ahmad Zaki", 
-      id: "APP-001", 
-      status: "Pending", 
-      date: "18 APR",
-      medical_id: "MED-5501",
-      applicant_id: "APP-001",
-      bmi: "-",
-      doctor_notes: "Awaiting Bloodwork Results"
-    },
+    { name: "Ahmad Zaki", id: "APP-001", status: "Pending", date: "18 APR", medical_id: "MED-5501", applicant_id: "APP-001", bmi: "-", doctor_notes: "Awaiting Bloodwork Results" },
   ],
   Physical: [
-    { 
-      name: "Ahmad Zaki", 
-      id: "APP-001", 
-      status: "Passed", 
-      metric: "BMI 22.1", 
-      date: "20 APR",
-      physical_id: "PHY-4401",
-      applicant_id: "APP-001",
-      run_time: "12:45m",
-      pushups_count: "42",
-      situps_count: "38"
-    },
+    { name: "Ahmad Zaki", id: "APP-001", status: "Passed", metric: "BMI 22.1", date: "20 APR", physical_id: "PHY-4401", applicant_id: "APP-001", run_time: "12:45m", pushups_count: "42", situps_count: "38" },
   ],
   Interview: [
-    { 
-      name: "Ahmad Zaki", 
-      id: "APP-001", 
-      status: "Awaiting", 
-      metric: "Board A", 
-      date: "25 APR",
-      interview_id: "INT-3301",
-      applicant_id: "APP-001",
-      communication_score: "8/10",
-      confidence_score: "9/10",
-      leadership_score: "7/10",
-      panel_comments: "Strong presence, technical depth good."
-    },
+    { name: "Ahmad Zaki", id: "APP-001", status: "Awaiting", metric: "Board A", date: "25 APR", interview_id: "INT-3301", applicant_id: "APP-001", communication_score: "8/10", confidence_score: "9/10", leadership_score: "7/10", panel_comments: "Strong presence, technical depth good." },
   ],
   Overall: [
-    { 
-      name: "Ahmad Zaki", 
-      id: "APP-001", 
-      status: "Passed", 
-      metric: "Final Score: 88.5", 
-      date: "28 APR",
-      academic_score: "18.5%",
-      aptitude_score: "27.6%",
-      physical_score: "24.4%",
-      interview_score: "18.0%",
-      overall_score: "88.5%",
-      application_result: "Selected"
-    },
-    { 
-      name: "Sarah Connor", 
-      id: "APP-002", 
-      status: "Failed", 
-      metric: "Disqualified", 
-      date: "28 APR",
-      academic_score: "14.0%",
-      aptitude_score: "13.5%",
-      physical_score: "0.0%",
-      interview_score: "0.0%",
-      overall_score: "27.5%",
-      application_result: "Rejected"
-    },
+    { name: "Ahmad Zaki", id: "APP-001", status: "Passed", metric: "Final Score: 88.5", date: "28 APR", academic_score: "18.5%", aptitude_score: "27.6%", physical_score: "24.4%", interview_score: "18.0%", overall_score: "88.5%", application_result: "Selected" },
+    { name: "Sarah Connor", id: "APP-002", status: "Failed", metric: "Disqualified", date: "28 APR", academic_score: "14.0%", aptitude_score: "13.5%", physical_score: "0.0%", interview_score: "0.0%", overall_score: "27.5%", application_result: "Rejected" },
   ],
 };
 
 export default function IntakeDetailPage({ params }: { params: { id: string } }) {
   const [activePhase, setActivePhase] = useState<Phase>('Verification');
+  const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' | null }>({ key: '', direction: null });
+
+  const handleSort = (key: string) => {
+    let direction: 'asc' | 'desc' = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedApplicants = useMemo(() => {
+    const items = [...applicantData[activePhase]];
+    if (sortConfig.direction !== null) {
+      items.sort((a, b) => {
+        const aValue = a[sortConfig.key];
+        const bValue = b[sortConfig.key];
+        
+        if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+    return items;
+  }, [activePhase, sortConfig]);
+
+  const SortButton = ({ column, label }: { column: string; label: string }) => (
+    <button 
+      onClick={() => handleSort(column)}
+      className="flex items-center gap-1.5 hover:text-white transition-colors group"
+    >
+      {label}
+      <span className="text-zinc-600 group-hover:text-emerald-500 transition-colors">
+        {sortConfig.key === column ? (
+          sortConfig.direction === 'asc' ? <ChevronUp size={10} /> : <ChevronDown size={10} />
+        ) : (
+          <ArrowUpDown size={10} />
+        )}
+      </span>
+    </button>
+  );
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col p-8">
@@ -347,7 +270,10 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
             return (
               <button
                 key={phase}
-                onClick={() => setActivePhase(phase)}
+                onClick={() => {
+                  setActivePhase(phase);
+                  setSortConfig({ key: '', direction: null });
+                }}
                 className={`flex items-center gap-3 px-6 py-4 rounded-2xl text-[10px] font-black tracking-widest transition-all ${
                   isActive 
                   ? `${phaseConfig[phase].color} text-white shadow-[0_0_20px_rgba(0,0,0,0.4)] scale-105` 
@@ -382,27 +308,29 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-white/[0.02]">
-                <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Applicant Name</th>
+                <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">
+                  <SortButton column="name" label="Applicant Name" />
+                </th>
                 
                 {/* VERIFICATION COLUMNS */}
                 {activePhase === 'Verification' && (
                   <>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Ver. ID</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Application ID</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">BG Check</th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="verification_id" label="Ver. ID" /></th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="id" label="Application ID" /></th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="background_check_status" label="BG Check" /></th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Remarks</th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Verified By</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Date Verified</th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="date_verified" label="Date Verified" /></th>
                   </>
                 )}
 
                 {/* APTITUDE COLUMNS */}
                 {activePhase === 'Aptitude' && (
                   <>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Aptitude ID</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Appl. ID</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Score</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Result</th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="aptitude_id" label="Aptitude ID" /></th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="applicant_id" label="Appl. ID" /></th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="test_score" label="Score" /></th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="pass_fail" label="Result" /></th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Test Date</th>
                   </>
                 )}
@@ -412,7 +340,7 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
                   <>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Medical ID</th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Appl. ID</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">BMI</th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="bmi" label="BMI" /></th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Doctor Notes</th>
                   </>
                 )}
@@ -422,9 +350,9 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
                   <>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Physical ID</th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Appl. ID</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">2.4km Run</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Pushups</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Situps</th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="run_time" label="2.4km Run" /></th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="pushups_count" label="Pushups" /></th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="situps_count" label="Situps" /></th>
                   </>
                 )}
 
@@ -433,9 +361,9 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
                   <>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Interview ID</th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Appl. ID</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Communication</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Confidence</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Leadership</th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="communication_score" label="Communication" /></th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="confidence_score" label="Confidence" /></th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="leadership_score" label="Leadership" /></th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Panel Comments</th>
                   </>
                 )}
@@ -447,24 +375,27 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Aptitude (30%)</th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Physical (30%)</th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Interview (20%)</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Overall (100%)</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Appl. Result</th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="overall_score" label="Overall (100%)" /></th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="application_result" label="Appl. Result" /></th>
                   </>
                 )}
 
-                <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Phase Status</th>
+                <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">
+                  <SortButton column="status" label="Phase Status" />
+                </th>
                 
-                {/* RENDER CRITERIA COLUMN ONLY IF NOT SPECIAL PHASES */}
                 {activePhase !== 'Verification' && activePhase !== 'Aptitude' && activePhase !== 'Medical' && activePhase !== 'Physical' && activePhase !== 'Interview' && activePhase !== 'Overall' && (
                   <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Criteria/Metric</th>
                 )}
 
-                <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Process Date</th>
+                <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">
+                  <SortButton column="date" label="Process Date" />
+                </th>
                 <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
-              {applicantData[activePhase].map((applicant, idx) => (
+              {sortedApplicants.map((applicant, idx) => (
                 <tr key={idx} className="hover:bg-white/[0.01] transition-colors group">
                   <td className="p-6">
                     <div className="flex flex-col">
@@ -554,7 +485,6 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
                     <StatusBadge status={applicant.status} />
                   </td>
 
-                  {/* RENDER METRIC DATA ONLY IF NOT SPECIAL PHASES */}
                   {activePhase !== 'Verification' && activePhase !== 'Aptitude' && activePhase !== 'Medical' && activePhase !== 'Physical' && activePhase !== 'Interview' && activePhase !== 'Overall' && (
                     <td className="p-6">
                       <span className="text-xs font-bold text-zinc-300 italic">
