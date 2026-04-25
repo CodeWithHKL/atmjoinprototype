@@ -120,9 +120,9 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
         {/* DESKTOP COLLAPSE TOGGLE */}
         <button 
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="hidden lg:flex absolute -right-3 top-10 h-6 w-6 rounded-full border border-white/10 bg-zinc-900 text-zinc-400 hover:text-white items-center justify-center transition-all z-[60]"
+          className="hidden lg:flex absolute -right-5 top-[3.5rem] h-10 w-10 rounded-full border border-white/10 bg-zinc-900 text-zinc-400 hover:text-white items-center justify-center transition-all z-[60]"
         >
-          {isCollapsed ? <PanelLeftOpen size={12} /> : <PanelLeftClose size={12} />}
+          {isCollapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}
         </button>
 
         {/* BRAND AREA */}

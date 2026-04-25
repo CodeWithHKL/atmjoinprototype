@@ -2,11 +2,12 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { 
   ChevronLeft, Search, Filter, CheckCircle2, XCircle, 
   Clock, ShieldCheck, Brain, Stethoscope, Activity, Users,
   Target, GraduationCap, ClipboardCheck, Award, ArrowUpDown, ChevronUp, ChevronDown,
-  Zap
+  Zap, AlertTriangle
 } from "lucide-react";
 
 type Phase = 'Verification' | 'Aptitude' | 'Medical' | 'Physical' | 'Interview' | 'Overall';
@@ -20,11 +21,41 @@ const phaseConfig = {
   Overall: { label: "Final Selection", icon: Award, color: "bg-indigo-600" },
 };
 
+// Map each phase to its respective detail route (View button)
+const phaseRoutes: Record<Phase, string> = {
+  Verification: "/recruiter/intake/id/zakiverification",
+  Aptitude: "/recruiter/intake/id/zakiaptitude",
+  Medical: "/recruiter/intake/id/zakimedical",
+  Physical: "/recruiter/intake/id/zakiphysical",
+  Interview: "/recruiter/intake/id/zakiinterview",
+  Overall: "/recruiter/intake/id/zakioverall",
+};
+
+// Map each phase to its respective finalize route (Finalize button)
+const finalizeRoutes: Record<Phase, string | null> = {
+  Verification: null, // locked
+  Aptitude: "/recruiter/intake/id/aptitude",
+  Medical: null, // blocked — requires all applicants completed
+  Physical: null, // locked — previous phase incomplete
+  Interview: null, // locked — previous phase incomplete
+  Overall: "/recruiter/intake/id/overall",
+};
+
+type LockReason = 'verification' | 'medical' | 'previous' | null;
+const lockReasons: Record<Phase, LockReason> = {
+  Verification: 'verification',
+  Aptitude: null,
+  Medical: 'medical',
+  Physical: 'previous',
+  Interview: 'previous',
+  Overall: null,
+};
+
 const applicantData: Record<Phase, any[]> = {
   Verification: [
-    { name: "Ahmad Zaki", id: "APP-001", status: "Passed", metric: "CGPA 3.8", date: "12 APR", verification_id: "VER-9901", document_status: "valid", background_check_status: "Cleared", remarks: "All docs verified", verified_by: "Admin_Siti", date_verified: "12 APR 2024" },
-    { name: "Sarah Connor", id: "APP-002", status: "Passed", metric: "CGPA 3.5", date: "12 APR", verification_id: "VER-9902", document_status: "valid", background_check_status: "Cleared", remarks: "N/A", verified_by: "Admin_Siti", date_verified: "12 APR 2024" },
-    { name: "M. Izzat", id: "APP-003", status: "Flagged", metric: "Incomplete Doc", date: "13 APR", verification_id: "VER-9903", document_status: "invalid", background_check_status: "Pending", remarks: "Missing IC Copy", verified_by: "Admin_Abu", date_verified: "13 APR 2024" },
+    { name: "Ahmad Zaki", id: "APP-001", status: "Passed", metric: "CGPA 3.8", date: "12 APR", verification_id: "VER-9901", document_status: "valid", background_check_status: "Cleared", remarks: "All docs verified", verified_by: "Kapt.Zulkifli", date_verified: "12 APR 2024" },
+    { name: "Sarah Connor", id: "APP-002", status: "Passed", metric: "CGPA 3.5", date: "12 APR", verification_id: "VER-9902", document_status: "valid", background_check_status: "Cleared", remarks: "N/A", verified_by: "Kapt.Zulkifli", date_verified: "12 APR 2024" },
+    { name: "M. Izzat", id: "APP-003", status: "Flagged", metric: "Incomplete Doc", date: "13 APR", verification_id: "VER-9903", document_status: "invalid", background_check_status: "Pending", remarks: "Missing IC Copy", verified_by: "Kapt.Zulkifli", date_verified: "13 APR 2024" },
   ],
   Aptitude: [
     { name: "Ahmad Zaki", id: "APP-001", status: "Passed", metric: "Score: 92%", date: "15 APR", aptitude_id: "APT-7701", applicant_id: "APP-001", test_score: "92/100", percentile: "98th", pass_fail: "Pass", test_date: "15 APR 2024" },
@@ -48,6 +79,9 @@ const applicantData: Record<Phase, any[]> = {
 export default function IntakeDetailPage({ params }: { params: { id: string } }) {
   const [activePhase, setActivePhase] = useState<Phase>('Verification');
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' | null }>({ key: '', direction: null });
+  const router = useRouter();
+
+  const intakeId = params.id || "INTK-TDM-O-26-01";
 
   const handleSort = (key: string) => {
     let direction: 'asc' | 'desc' = 'asc';
@@ -95,15 +129,15 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
       <header className="mb-12">
         <Link href="/recruiter/intake" className="group inline-flex items-center gap-2 text-[10px] font-bold tracking-widest text-zinc-500 hover:text-white mb-6 transition-colors">
           <ChevronLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
-          Back to Intakes
+          BACK TO INTAKES
         </Link>
         <div className="flex justify-between items-end">
           <div>
-            <h1 className="text-4xl font-black tracking-tighter leading-none">
-              Applicant <span className="text-emerald-500">Pipeline.</span>
+            <h1 className="text-3xl font-bold tracking-tight text-white">
+              Applicant <span className="text-emerald-500">Pipeline</span>
             </h1>
-            <p className="text-zinc-500 text-[10px] font-bold tracking-widest mt-2 uppercase">
-              Intake ID: <span className="text-zinc-300 font-mono">{params.id || "INTK-TDM-O-26-01"}</span>
+            <p className="text-zinc-500 text-[10px] font-bold mt-1 uppercase tracking-widest flex items-center gap-2">
+              Intake ID: <span className="text-zinc-300 font-mono tracking-normal">{intakeId}</span>
             </p>
           </div>
           
@@ -271,13 +305,70 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
           </h3>
         </div>
         
-        <button className="group relative flex items-center gap-3 px-8 py-3 bg-white text-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95">
-          <div className="absolute inset-0 bg-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-          <Zap size={14} className="relative z-10 group-hover:fill-black" />
-          <span className="relative z-10 text-[10px] font-black uppercase tracking-widest group-hover:text-white transition-colors">
-            Finalize Current Phase
-          </span>
-        </button>
+        {/* FINALIZE BUTTON */}
+        {(() => {
+          const reason = lockReasons[activePhase];
+          if (reason === 'medical') {
+            return (
+              <div className="flex flex-col items-end gap-2">
+                <div className="flex items-center gap-3 px-6 py-3 bg-zinc-900 border border-amber-500/20 rounded-full cursor-not-allowed">
+                  <AlertTriangle size={14} className="text-amber-400 shrink-0" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-amber-400/70">
+                    Finalize Locked
+                  </span>
+                </div>
+                <p className="text-[9px] font-bold text-amber-500/60 uppercase tracking-widest text-right max-w-xs leading-relaxed">
+                  All applicants must be completed before this phase can be finalized.
+                </p>
+              </div>
+            );
+          }
+          if (reason === 'previous') {
+            return (
+              <div className="flex flex-col items-end gap-2">
+                <div className="flex items-center gap-3 px-6 py-3 bg-zinc-900 border border-zinc-700 rounded-full cursor-not-allowed">
+                  <AlertTriangle size={14} className="text-zinc-500 shrink-0" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600">
+                    Finalize Locked
+                  </span>
+                </div>
+                <p className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest text-right max-w-xs leading-relaxed">
+                  Previous phase has not been completed yet.
+                </p>
+              </div>
+            );
+          }
+          if (reason === 'verification') {
+            return (
+              <div className="flex flex-col items-end gap-2">
+                <div className="flex items-center gap-3 px-6 py-3 bg-zinc-900 border border-zinc-700 rounded-full cursor-not-allowed">
+                  <AlertTriangle size={14} className="text-zinc-500 shrink-0" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600">
+                    Finalize Locked
+                  </span>
+                </div>
+                <p className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest text-right max-w-xs leading-relaxed">
+                  Verification phase cannot be manually finalized.
+                </p>
+              </div>
+            );
+          }
+          return (
+            <button
+              onClick={() => {
+                const route = finalizeRoutes[activePhase];
+                if (route) router.push(route);
+              }}
+              className="group relative flex items-center gap-3 px-8 py-3 bg-white text-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95"
+            >
+              <div className="absolute inset-0 bg-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <Zap size={14} className="relative z-10 group-hover:fill-black" />
+              <span className="relative z-10 text-[10px] font-black uppercase tracking-widest group-hover:text-white transition-colors">
+                Finalize Current Phase
+              </span>
+            </button>
+          );
+        })()}
       </div>
 
       {/* PHASE TOGGLE (Tabs) */}
@@ -338,7 +429,7 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="id" label="Application ID" /></th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="background_check_status" label="BG Check" /></th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Remarks</th>
-                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Verified By</th>
+                    <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Assigned To</th>
                     <th className="p-6 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500"><SortButton column="date_verified" label="Date Verified" /></th>
                   </>
                 )}
@@ -518,10 +609,15 @@ export default function IntakeDetailPage({ params }: { params: { id: string } })
                       <span className="text-[10px] font-bold uppercase">{applicant.date}</span>
                     </div>
                   </td>
+
+                  {/* VIEW BUTTON — routes to the phase-specific detail page */}
                   <td className="p-6 text-right">
-                    <button className="text-[9px] font-black uppercase tracking-widest px-4 py-2 rounded-lg border border-white/5 hover:border-emerald-500/50 hover:bg-emerald-500/10 transition-all">
+                    <Link
+                      href={phaseRoutes[activePhase]}
+                      className="text-[9px] font-black uppercase tracking-widest px-4 py-2 rounded-lg border border-white/5 hover:border-emerald-500/50 hover:bg-emerald-500/10 transition-all"
+                    >
                       View
-                    </button>
+                    </Link>
                   </td>
                 </tr>
               ))}

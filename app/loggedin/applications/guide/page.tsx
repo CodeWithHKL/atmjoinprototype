@@ -24,7 +24,7 @@ const guideSections = [
     description: "The automated screening of your digital credentials against service requirements.",
     details: [
       "Ensure all uploaded documents are high-resolution scans.",
-      "Verification usually takes 3-5 business days.",
+      "Verification usually takes 3–5 business days.",
       "Check your eligibility status for BMI and academic prerequisites."
     ]
   },
@@ -93,7 +93,7 @@ export default function GuidePage() {
             <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500">
               <Info size={18} />
             </div>
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">Application Protocol</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-500">Application Protocol</span>
           </div>
           <h1 className="text-4xl font-black uppercase tracking-tighter">Candidate <span className="text-emerald-500">Guide.</span></h1>
           <p className="text-zinc-500 text-sm mt-4 leading-relaxed max-w-2xl font-medium">
@@ -104,19 +104,19 @@ export default function GuidePage() {
         {/* GUIDELINES GRID */}
         <div className="space-y-6">
           {guideSections.map((section, idx) => (
-            <div key={idx} className="group rounded-[2rem] bg-zinc-900 border border-white/5 p-8 transition-all hover:bg-zinc-900/50">
+            <div key={idx} className="group rounded-[2rem] bg-zinc-900 border border-white/5 p-8 transition-all hover:border-emerald-500/20">
               <div className="flex flex-col md:flex-row gap-8">
                 {/* ICON & PHASE */}
                 <div className="shrink-0">
                   <div className={`h-16 w-16 rounded-2xl ${section.bg} ${section.color} flex items-center justify-center mb-4`}>
                     <section.icon size={32} />
                   </div>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Phase {section.phase}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-600">Phase {section.phase}</span>
                 </div>
 
                 {/* CONTENT */}
                 <div className="flex-1">
-                  <h2 className="text-xl font-black uppercase tracking-tight mb-2 text-white group-hover:text-emerald-400 transition-colors">
+                  <h2 className="text-xl font-bold uppercase tracking-tight mb-2 text-white group-hover:text-emerald-400 transition-colors">
                     {section.title}
                   </h2>
                   <p className="text-sm text-zinc-400 mb-6 font-medium leading-relaxed">
@@ -127,7 +127,7 @@ export default function GuidePage() {
                     {section.details.map((detail, dIdx) => (
                       <li key={dIdx} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
                         <CheckSquare size={14} className="text-emerald-500 mt-0.5 shrink-0" />
-                        <span className="text-[11px] font-bold text-zinc-300 uppercase tracking-tight leading-snug">{detail}</span>
+                        <span className="text-[11px] font-semibold text-zinc-300 leading-snug">{detail}</span>
                       </li>
                     ))}
                   </ul>
@@ -140,14 +140,14 @@ export default function GuidePage() {
         {/* DOCUMENT CHECKLIST SECTION */}
         <div className="mt-12 p-8 rounded-[2.5rem] bg-emerald-500 text-black">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div>
+            <div className="max-w-md">
               <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">Required Documentation</h3>
-              <p className="text-black/70 text-xs font-bold uppercase tracking-widest leading-relaxed">
-                Download the official checklist. Ensure all originals are kept in a transparent folder.
+              <p className="text-black/80 text-xs font-bold leading-relaxed">
+                Download the official checklist. Ensure all original documents are kept in a transparent folder for manual verification.
               </p>
             </div>
-            <button className="h-14 px-8 rounded-2xl bg-black text-white text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-all">
-              <Download size={18} /> Download Checklist (PDF)
+            <button className="h-14 px-8 rounded-2xl bg-black text-white text-[10px] font-bold uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-all shadow-xl">
+              <Download size={18} /> Download checklist (PDF)
             </button>
           </div>
         </div>
@@ -156,9 +156,9 @@ export default function GuidePage() {
         <div className="mt-8 p-6 rounded-[2rem] bg-zinc-900 border border-red-500/20 flex gap-4">
           <FileWarning className="text-red-500 shrink-0" size={24} />
           <div>
-            <h4 className="text-[11px] font-black uppercase tracking-widest text-red-500 mb-1">Code of Conduct</h4>
-            <p className="text-[10px] font-bold text-zinc-500 uppercase leading-relaxed">
-              Punctuality is a core military value. Arriving late to any assessment center will result in an automatic "Fail" status for that application track. No appeals will be entertained.
+            <h4 className="text-[11px] font-bold uppercase tracking-widest text-red-500 mb-1">Code of Conduct</h4>
+            <p className="text-[10px] font-semibold text-zinc-500 leading-relaxed uppercase">
+              Punctuality is a core military value. Arriving late to any assessment center will result in an automatic "Fail" status for that track. No appeals will be entertained.
             </p>
           </div>
         </div>

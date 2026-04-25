@@ -3,7 +3,6 @@
 import React from "react";
 import Link from "next/link";
 import { 
-  Trophy, 
   Clock, 
   Calendar, 
   ChevronRight, 
@@ -19,21 +18,25 @@ const myApplications = [
   {
     id: "APP-8829",
     branch: "Navy (TLDM)",
+    branchLogo: "/TLDM_Logo.png",
     role: "Officer Cadet",
-    phase: 2, // Altitude Test
+    phase: 1, // Altitude Test
     status: "Action Required",
     date: "12 May 2026",
+    time: "0800 HRS",
     location: "KD Sultan Idris, Lumut",
     progress: 40,
   },
   {
     id: "APP-9012",
     branch: "Army (TDM)",
+    branchLogo: "/TDM_Logo.png",
     role: "Enlisted Personnel",
-    phase: 1, // System Verification
+    phase: 0, // System Verification
     status: "In Progress",
     date: "Processing",
-    location: "Pending Approval",
+    time: "TBD",
+    location: "HQ Personnel, Kuala Lumpur",
     progress: 20,
   }
 ];
@@ -47,8 +50,8 @@ export default function Dashboard() {
     <div className="min-h-screen bg-zinc-950 text-white p-4 lg:p-8">
       {/* WELCOME HEADER */}
       <header className="mb-10">
-        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">Personnel Command</span>
-        <h1 className="text-3xl lg:text-4xl font-black uppercase tracking-tighter mt-2">
+        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-500">Personnel Command</span>
+        <h1 className="text-3xl lg:text-4xl font-bold tracking-tighter mt-2">
           Welcome back, <span className="text-zinc-500">Applicant.</span>
         </h1>
       </header>
@@ -58,12 +61,12 @@ export default function Dashboard() {
         {/* LEFT & MIDDLE: ACTIVE APPLICATIONS */}
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-sm font-black uppercase tracking-widest flex items-center gap-2">
+            <h2 className="text-sm font-bold uppercase tracking-widest flex items-center gap-2">
               <Activity size={16} className="text-emerald-500" /> 
               Active Operations <span className="text-zinc-600">({myApplications.length}/2)</span>
             </h2>
-            <Link href="/loggedin/applications/myapply" className="text-[10px] font-bold uppercase text-zinc-500 hover:text-white transition-colors">
-              View Details
+            <Link href="/loggedin/applications/myapply" className="text-[11px] font-medium text-zinc-500 hover:text-white transition-colors">
+              View details
             </Link>
           </div>
 
@@ -71,27 +74,59 @@ export default function Dashboard() {
             {myApplications.map((app, idx) => (
               <div key={idx} className="group relative overflow-hidden rounded-[2rem] bg-zinc-900 border border-white/5 p-6 lg:p-8 hover:border-emerald-500/30 transition-all">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-[9px] font-black uppercase tracking-widest">
-                        {app.id}
-                      </span>
-                      <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1">
-                        <MapPin size={10} /> {app.location}
-                      </span>
+                  <div className="flex items-center gap-5">
+                    {/* BRANCH LOGO */}
+                    <div className="h-16 w-16 rounded-2xl bg-white/5 border border-white/10 p-3 flex items-center justify-center shrink-0">
+                      <img 
+                        src={app.branchLogo} 
+                        alt={`${app.branch} Logo`} 
+                        className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                      />
                     </div>
-                    <h3 className="text-2xl font-black uppercase tracking-tight">{app.branch}</h3>
-                    <p className="text-zinc-400 text-sm font-medium">{app.role}</p>
+
+                    <div>
+                      <div className="flex items-center gap-3 mb-1">
+                        <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-[9px] font-bold tracking-widest">
+                          {app.id}
+                        </span>
+                      </div>
+                      <h3 className="text-2xl font-bold tracking-tight">{app.branch}</h3>
+                      <p className="text-zinc-400 text-sm font-medium">{app.role}</p>
+                    </div>
                   </div>
 
-                  <div className="text-right">
-                    <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest mb-2 ${
+                  <div className="md:text-right">
+                    <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest mb-2 ${
                       app.status === "Action Required" ? "bg-amber-500 text-black animate-pulse" : "bg-white/5 text-zinc-400"
                     }`}>
                       {app.status === "Action Required" && <AlertCircle size={12} />}
                       {app.status}
                     </div>
-                    <p className="text-[10px] font-bold text-zinc-500 uppercase block tracking-tighter">Next Milestone: {app.date}</p>
+                    <p className="text-[11px] font-medium text-zinc-500 block">
+                      Phase {app.phase + 1}: <span className="text-zinc-300">{phases[app.phase]}</span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* LOGISTICS ROW */}
+                <div className="flex flex-wrap gap-6 mb-8 border-t border-white/5 pt-6">
+                  <div className="flex items-center gap-2">
+                    <div className="p-2 rounded-lg bg-white/5 text-zinc-400">
+                      <MapPin size={14} />
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Reporting Center</p>
+                      <p className="text-[11px] font-semibold text-zinc-200">{app.location}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="p-2 rounded-lg bg-white/5 text-zinc-400">
+                      <Calendar size={14} />
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Reporting Date</p>
+                      <p className="text-[11px] font-semibold text-zinc-200">{app.date} • {app.time}</p>
+                    </div>
                   </div>
                 </div>
 
@@ -105,17 +140,15 @@ export default function Dashboard() {
                           i === app.phase ? "bg-zinc-900 border-emerald-500 text-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.4)]" :
                           "bg-zinc-900 border-white/10 text-zinc-700"
                         }`}>
-                          {i < app.phase ? <CheckCircle2 size={16} /> : <span className="text-[10px] font-black">{i + 1}</span>}
+                          {i < app.phase ? <CheckCircle2 size={16} /> : <span className="text-[10px] font-bold">{i + 1}</span>}
                         </div>
-                        <span className={`text-[8px] font-black uppercase tracking-tighter ${i === app.phase ? "text-white" : "text-zinc-600"}`}>
+                        <span className={`text-[9px] font-bold tracking-tight ${i === app.phase ? "text-white" : "text-zinc-600"}`}>
                           {p}
                         </span>
                       </div>
                     ))}
                   </div>
-                  {/* Progress Line Background */}
                   <div className="absolute top-4 left-0 w-full h-[2px] bg-white/5 -z-0" />
-                  {/* Progress Line Active */}
                   <div 
                     className="absolute top-4 left-0 h-[2px] bg-emerald-500 transition-all duration-1000 shadow-[0_0_10px_rgba(16,185,129,0.5)]" 
                     style={{ width: `${(app.phase / (phases.length - 1)) * 100}%` }}
@@ -128,19 +161,9 @@ export default function Dashboard() {
 
         {/* RIGHT COLUMN: QUICK INTEL */}
         <div className="space-y-6">
-          {/* STATS PREVIEW */}
-          <div className="p-8 rounded-[2rem] bg-gradient-to-br from-emerald-500 to-emerald-700 text-black">
-            <Trophy size={32} className="mb-4" />
-            <h3 className="text-xl font-black uppercase tracking-tighter leading-tight mb-1">Elite Potential</h3>
-            <p className="text-black/70 text-xs font-bold uppercase tracking-widest mb-6">Physical Merit Score: 88%</p>
-            <div className="h-2 w-full bg-black/10 rounded-full overflow-hidden">
-              <div className="h-full bg-black w-[88%]" />
-            </div>
-          </div>
-
           {/* OPEN INTAKES PREVIEW */}
           <div className="p-8 rounded-[2rem] bg-zinc-900 border border-white/5">
-            <h3 className="text-sm font-black uppercase tracking-widest mb-6 flex items-center gap-2">
+            <h3 className="text-sm font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
               <Calendar size={16} className="text-zinc-500" /> Open Intakes
             </h3>
             <div className="space-y-4">
@@ -150,15 +173,15 @@ export default function Dashboard() {
               ].map((intake, i) => (
                 <div key={i} className="flex items-center justify-between group cursor-pointer">
                   <div>
-                    <p className={`text-[11px] font-black uppercase tracking-tight ${intake.color}`}>{intake.label}</p>
-                    <p className="text-[9px] font-bold text-zinc-500 uppercase">{intake.date}</p>
+                    <p className={`text-[12px] font-bold tracking-tight ${intake.color}`}>{intake.label}</p>
+                    <p className="text-[10px] font-medium text-zinc-500">{intake.date}</p>
                   </div>
                   <ArrowUpRight size={14} className="text-zinc-800 group-hover:text-white transition-colors" />
                 </div>
               ))}
             </div>
-            <Link href="/loggedin/recruitment" className="mt-8 flex items-center justify-center w-full py-4 rounded-xl border border-white/5 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white/5 transition-all">
-              Browse All
+            <Link href="/loggedin/recruitment" className="mt-8 flex items-center justify-center w-full py-4 rounded-xl border border-white/5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white/5 transition-all text-zinc-300">
+              Browse all
             </Link>
           </div>
 
@@ -167,8 +190,8 @@ export default function Dashboard() {
             <div className="flex gap-4">
               <Clock size={20} className="text-blue-400 shrink-0" />
               <div>
-                <p className="text-[10px] font-bold text-blue-100/60 uppercase tracking-wide leading-relaxed">
-                  The Air Force (TUDM) Specialist recruitment window opens in 14 days. Prepare your technical certifications.
+                <p className="text-[11px] font-medium text-blue-100/70 leading-relaxed">
+                  The Air Force (TUDM) Specialist recruitment window opens in 14 days. Please prepare your technical certifications.
                 </p>
               </div>
             </div>

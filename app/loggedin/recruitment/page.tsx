@@ -21,7 +21,7 @@ const recruitments = [
     closingDate: "2026-05-15",
     daysLeft: 12,
     hoursLeft: 8,
-    status: "Applied", // State: Applied
+    status: "Applied",
     color: "bg-emerald-950/40 border-emerald-500/30 shadow-[0_0_40px_rgba(16,185,129,0.1)]",
     glow: "bg-emerald-500",
     buttonColor: "bg-emerald-500 text-black cursor-default"
@@ -34,7 +34,7 @@ const recruitments = [
     closingDate: "2026-06-20",
     daysLeft: 48,
     hoursLeft: 14,
-    status: "Apply Now", // State: Available
+    status: "Apply Now",
     color: "bg-blue-950/40 border-blue-500/30 shadow-[0_0_40px_rgba(59,130,246,0.1)]",
     glow: "bg-blue-500",
     buttonColor: "bg-white text-black hover:bg-blue-400"
@@ -60,7 +60,7 @@ const recruitments = [
     closingDate: "2026-04-10",
     daysLeft: 0,
     hoursLeft: 0,
-    status: "Expired", // State: Closed
+    status: "Expired",
     color: "bg-zinc-900 border-white/5 opacity-60",
     glow: "bg-zinc-700",
     buttonColor: "bg-zinc-800 text-zinc-500 cursor-not-allowed"
@@ -105,10 +105,10 @@ export default function RecruitmentPage() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <ShieldCheck size={16} className="text-emerald-500" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">Service Selection Portal</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-500">Service Selection Portal</span>
             </div>
-            <h1 className="text-4xl font-black uppercase tracking-tighter">Current <span className="text-emerald-500">Intakes.</span></h1>
-            <p className="text-zinc-500 text-sm mt-4 font-medium max-w-xl leading-relaxed uppercase tracking-tight">
+            <h1 className="text-4xl font-bold tracking-tighter">Current <span className="text-emerald-500">Intakes.</span></h1>
+            <p className="text-zinc-500 text-sm mt-4 font-medium max-w-xl leading-relaxed tracking-tight">
               Select your track. Remember: withdrawals are only permitted while the intake remains open.
             </p>
           </div>
@@ -116,8 +116,8 @@ export default function RecruitmentPage() {
           {/* APPLICATION COUNTER */}
           <div className="bg-white/5 border border-white/10 px-6 py-4 rounded-2xl flex items-center gap-4">
             <div>
-              <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest block">Active Submissions</span>
-              <span className="text-2xl font-black">{appliedCount}/2</span>
+              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest block">Active Submissions</span>
+              <span className="text-2xl font-bold">{appliedCount}/2</span>
             </div>
             <div className="flex gap-1">
               {[1, 2].map(i => (
@@ -141,32 +141,32 @@ export default function RecruitmentPage() {
                 {item.status === "Applied" && (
                   <div className="bg-emerald-500/20 text-emerald-500 px-3 py-1 rounded-lg flex items-center gap-2">
                     <CheckCircle2 size={12} />
-                    <span className="text-[9px] font-black uppercase tracking-widest">Recorded</span>
+                    <span className="text-[9px] font-bold uppercase tracking-widest">Recorded</span>
                   </div>
                 )}
               </div>
 
               <div className="mb-8">
-                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">{item.id}</span>
-                <h3 className="text-2xl font-black uppercase tracking-tight mt-1">{item.branch}</h3>
-                <p className="text-zinc-400 text-sm font-bold uppercase tracking-widest">{item.type} Track</p>
+                <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">{item.id}</span>
+                <h3 className="text-2xl font-bold tracking-tight mt-1">{item.branch}</h3>
+                <p className="text-zinc-400 text-sm font-semibold">{item.type} Track</p>
               </div>
 
               <div className="space-y-4 mt-auto">
                 <div className="flex items-center gap-3 p-4 rounded-2xl bg-black/20 border border-white/5">
                   <Calendar size={16} className="text-zinc-500" />
                   <div>
-                    <span className="text-[9px] font-black text-zinc-600 uppercase block mb-1">Closing On</span>
-                    <span className="text-xs font-bold text-zinc-300 uppercase">{item.closingDate}</span>
+                    <span className="text-[9px] font-bold text-zinc-600 uppercase block mb-1">Closing on</span>
+                    <span className="text-xs font-bold text-zinc-300">{item.closingDate}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3 p-4 rounded-2xl bg-black/20 border border-white/5">
                   <Timer size={16} className="text-zinc-500" />
                   <div>
-                    <span className="text-[9px] font-black text-zinc-600 uppercase block mb-1">Time Remaining</span>
-                    <span className="text-xs font-black text-zinc-200 uppercase">
-                      {item.status === "Expired" ? "0D 0H" : `${item.daysLeft}D ${item.hoursLeft}H`}
+                    <span className="text-[9px] font-bold text-zinc-600 uppercase block mb-1">Time remaining</span>
+                    <span className="text-xs font-bold text-zinc-200">
+                      {item.status === "Expired" ? "0d 0h" : `${item.daysLeft}d ${item.hoursLeft}h`}
                     </span>
                   </div>
                 </div>
@@ -175,7 +175,7 @@ export default function RecruitmentPage() {
               {item.status === "Apply Now" ? (
                 <Link href="/loggedin/recruitment/apply" className="block w-full">
                   <button 
-                    className={`mt-8 w-full py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all active:scale-95 ${item.buttonColor}`}
+                    className={`mt-8 w-full py-5 rounded-2xl text-[10px] font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all active:scale-95 ${item.buttonColor}`}
                   >
                     Apply Now <ArrowRight size={14} />
                   </button>
@@ -183,7 +183,7 @@ export default function RecruitmentPage() {
               ) : (
                 <button 
                   disabled
-                  className={`mt-8 w-full py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all active:scale-95 ${item.buttonColor}`}
+                  className={`mt-8 w-full py-5 rounded-2xl text-[10px] font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all active:scale-95 ${item.buttonColor}`}
                 >
                   {item.status === "Applied" ? (
                     <>Application Sent <CheckCircle2 size={14} /></>
@@ -205,9 +205,9 @@ export default function RecruitmentPage() {
               <Info size={32} />
            </div>
            <div>
-             <h4 className="text-sm font-black uppercase tracking-widest mb-1 text-white">Selection Protocol</h4>
-             <p className="text-[10px] font-bold text-zinc-500 uppercase leading-relaxed max-w-3xl">
-               The <span className="text-emerald-500 text-xs">1/2</span> counter indicates your current commitment. If you have already applied to two branches, you must withdraw from one to open a new slot.
+             <h4 className="text-sm font-bold uppercase tracking-widest mb-1 text-white">Selection Protocol</h4>
+             <p className="text-[11px] font-medium text-zinc-500 leading-relaxed max-w-3xl">
+               The <span className="text-emerald-500 font-bold">1/2</span> counter indicates your current commitment. If you have already applied to two branches, you must withdraw from one to open a new slot.
              </p>
            </div>
         </div>
