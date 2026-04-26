@@ -12,7 +12,8 @@ import {
   Eye,
   Activity,
   CheckCircle2,
-  UserCheck
+  UserCheck,
+  Plus
 } from "lucide-react";
 
 const phases = ["Eligibility", "Altitude", "Medical", "Physical", "Interview"];
@@ -38,7 +39,7 @@ const armyIntakes = [
     slots: 1500,
     closingDate: "7 March 2026 - 20 May 2026",
     location: "PULADA, Johor",
-    currentPhase: 0, // Eligibility
+    currentPhase: 0,
   },
   {
     id: "INTK-TDM-O-25-09",
@@ -49,7 +50,7 @@ const armyIntakes = [
     slots: 120,
     closingDate: "12 Dec 2025",
     location: "Pusat Latihan Tentera Darat",
-    currentPhase: 4, // Interview
+    currentPhase: 4,
   },
   {
     id: "INTK-TDM-E-25-08",
@@ -132,10 +133,9 @@ export default function IntakeManagement() {
 
   const selectedIntake = armyIntakes.find(i => i.id === selectedId);
 
-  // Simple mock logic for Current Pool (applicants decreasing as phases progress)
   const getCurrentPool = (total: number, phase: number) => {
     if (phase === 0) return total;
-    const reductionFactor = 1 - (phase * 0.15); // Reduction per phase
+    const reductionFactor = 1 - (phase * 0.15);
     return Math.floor(total * reductionFactor);
   };
 
@@ -144,9 +144,22 @@ export default function IntakeManagement() {
       {/* HEADER */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Intake <span className="text-emerald-500">Management</span></h1>
-          <p className="text-zinc-500 text-xs font-medium mt-1">MANAGE INTAKES AND APPLICATIONS</p>
+          <h1 className="text-3xl font-bold tracking-tight text-white">
+            Intake <span className="text-emerald-500">Management</span>
+          </h1>
+          <p className="text-zinc-500 text-[10px] font-bold mt-1 tracking-widest">
+            MANAGE INTAKES AND APPLICATIONS
+          </p>
         </div>
+        
+        {/* CREATE BUTTON */}
+        <button 
+          onClick={() => router.push('/recruiter/intake/create')}
+          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-black px-6 py-3 rounded-xl font-bold text-xs transition-all shadow-lg shadow-emerald-500/20 active:scale-95"
+        >
+          <Plus size={16} strokeWidth={3} />
+          CREATE NEW INTAKE
+        </button>
       </div>
 
       <div className="grid lg:grid-cols-12 gap-8 h-[calc(100vh-200px)]">
@@ -216,7 +229,7 @@ export default function IntakeManagement() {
         </div>
 
         {/* RIGHT: DETAILS */}
-        <div className="lg:col-span-7 bg-zinc-900 rounded-3xl border border-white/5 p-10 overflow-y-auto shadow-2xl relative">
+        <div className="lg:col-span-7 bg-zinc-900 rounded-3xl border border-white/5 p-10 overflow-y-auto shadow-2xl relative scrollbar-thin scrollbar-thumb-zinc-800">
           {selectedIntake ? (
             <>
               <div className="flex justify-between items-start mb-12">
@@ -232,7 +245,7 @@ export default function IntakeManagement() {
                 </button>
               </div>
 
-              {/* STATS GRID - 3 CARDS NOW */}
+              {/* STATS GRID */}
               <div className="grid grid-cols-3 gap-4 mb-12">
                 <StatCard label="Total Applicants" value={selectedIntake.applicants.toLocaleString()} icon={Users} color="text-blue-500" />
                 <StatCard label="Quota / Slots" value={selectedIntake.slots.toLocaleString()} icon={Activity} color="text-emerald-500" />
@@ -299,7 +312,7 @@ function StatCard({ label, value, icon: Icon, color }: any) {
   return (
     <div className="bg-zinc-950 border border-white/5 p-6 rounded-2xl">
       <Icon size={16} className={`${color} mb-3`} />
-      <p className="text-2xl font-bold tracking-tight mb-1">{value}</p>
+      <p className="text-2xl font-bold tracking-tight mb-1 text-white">{value}</p>
       <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">{label}</p>
     </div>
   );

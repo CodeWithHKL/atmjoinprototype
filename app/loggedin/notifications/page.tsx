@@ -68,10 +68,10 @@ export default function NotificationsPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pt-8">
           <div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 block">
-              Communication Link // Intelligence
+              messages sent via atm join system
             </span>
             <h1 className="mt-2 text-3xl font-black uppercase tracking-tight text-white">
-              Signal <span className="text-zinc-500">Notifications</span>
+              MAIL & <span className="text-zinc-500">Notifications</span>
             </h1>
           </div>
 

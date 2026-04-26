@@ -62,10 +62,10 @@ interface SelectFieldProps {
 export default function ProfileEditPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<FormData>({
-    fullName: "Ahmad bin Mustaffa",
-    icNumber: "990102-14-XXXX",
-    dob: "1999-01-02",
-    birthCert: "AA 882012",
+    fullName: "Ahmad Zaki Bin Osman",
+    icNumber: "020412-02-0551",
+    dob: "2002-04-12",
+    birthCert: "BC-9988221",
     citizenship: "Malaysian",
     gender: "Male",
     race: "Malay",
@@ -73,7 +73,7 @@ export default function ProfileEditPage() {
     religion: "Islam",
     maritalStatus: "Single",
     countryBirth: "Malaysia",
-    placeBirth: "Kuala Lumpur",
+    placeBirth: "Hospital Sultanah Bahiyah, Alor Setar",
     highestQual: "Bachelor's Degree (Hons)",
     uniName: "Universiti Malaya",
     fieldStudy: "Computer Science (Cybersecurity)",
@@ -83,16 +83,15 @@ export default function ProfileEditPage() {
     schoolName: "SMK Victoria, Kuala Lumpur",
     results: "9A 1B",
     completionYear: "2016",
-    address: "No. 24, Jalan Wangsa Maju, Seksyen 2, Setapak",
-    city: "Kuala Lumpur",
-    postcode: "53300",
-    state: "Wilayah Persekutuan",
-    email: "ahmad.m@email.com",
-    mobile: "+60 12-345 6789",
-    homePhone: "+60 3-4142 XXXX"
+    address: "No 14, Jalan Pahlawan 5/1, Taman Greenwood",
+    city: "Alor Setar",
+    postcode: "05000",
+    state: "Kedah",
+    email: "zaki.osman@email.com",
+    mobile: "+60 12-445 6789",
+    homePhone: "+60 4-733 1122"
   });
 
-  // Fixed the index signature error by casting e.target.name
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ 
@@ -142,7 +141,7 @@ export default function ProfileEditPage() {
                   </div>
                 </div>
                 <h2 className="text-lg font-black uppercase">{formData.fullName}</h2>
-                <p className="text-emerald-500 text-[10px] font-black uppercase tracking-[0.2em] mt-1">Personnel ID: ATM-2026-99012</p>
+                <p className="text-emerald-500 text-[10px] font-black uppercase tracking-[0.2em] mt-1">Personnel ID: APP-001</p>
               </div>
 
               <div className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 shadow-2xl">
@@ -177,7 +176,7 @@ export default function ProfileEditPage() {
                   <SelectField label="Citizenship" name="citizenship" value={formData.citizenship} onChange={handleChange} options={["Malaysian", "Permanent Resident", "Other"]} />
                   <SelectField label="Gender" name="gender" value={formData.gender} onChange={handleChange} options={["Male", "Female"]} />
                   <SelectField label="Race" name="race" value={formData.race} onChange={handleChange} options={["Malay", "Chinese", "Indian", "Other"]} />
-                  <SelectField label="Ethnicity" name="ethnicity" value={formData.ethnicity} onChange={handleChange} options={["Bumiputera", "Non-Bumiputera"]} />
+                  <SelectField label="Ethnicity" name="ethnicity" value={formData.ethnicity} onChange={handleChange} options={["Malay", "Bugis","Boyan", "Banjar","Jawa", "Jawi Pekan","Minangkabau"]} />
                   <SelectField label="Religion" name="religion" value={formData.religion} onChange={handleChange} options={["Islam", "Christianity", "Buddhism", "Hinduism", "Sikhism", "Other"]} />
                   <SelectField label="Marital Status" name="maritalStatus" value={formData.maritalStatus} onChange={handleChange} options={["Single", "Married", "Divorced"]} />
                   <InputField label="Country of Birth" name="countryBirth" value={formData.countryBirth} onChange={handleChange} />
@@ -229,7 +228,7 @@ export default function ProfileEditPage() {
                   </div>
                   <InputField label="City / Town" name="city" value={formData.city} onChange={handleChange} />
                   <InputField label="Postcode" name="postcode" value={formData.postcode} onChange={handleChange} isMono />
-                  <SelectField label="State" name="state" value={formData.state} onChange={handleChange} options={["Wilayah Persekutuan", "Selangor", "Johor", "Penang", "Perak", "Sabah", "Sarawak"]} />
+                  <SelectField label="State" name="state" value={formData.state} onChange={handleChange} options={["Kedah", "Wilayah Persekutuan", "Selangor", "Johor", "Penang", "Perak", "Sabah", "Sarawak"]} />
                   <InputField label="Email Address" name="email" type="email" value={formData.email} onChange={handleChange} />
                   <InputField label="Mobile Number" name="mobile" value={formData.mobile} onChange={handleChange} isMono />
                   <InputField label="Home Number" name="homePhone" value={formData.homePhone} onChange={handleChange} isMono />

@@ -164,7 +164,7 @@ export default function EligibilityPage() {
                 </p>
                 
                 <Link 
-                  href="/loggedin/recruitment" 
+                  href="/loggedin/carebility/assessment" 
                   className="group flex items-center justify-center gap-3 w-full py-5 rounded-2xl bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] hover:bg-emerald-400 transition-all"
                 >
                   Start Applying <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />

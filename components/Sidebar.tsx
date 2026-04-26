@@ -141,14 +141,14 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
         {/* NAV ITEMS */}
         <nav className="flex-1 space-y-2 overflow-y-auto px-3 py-6 lg:py-0 no-scrollbar">
           {menuItems.map((item) => {
-            // Logic to determine if this specific section is active
             const isRootActive = item.rootPath && pathname.startsWith(item.rootPath);
             const isSubActive = item.subItems?.some(sub => pathname.startsWith(sub.href));
             
-            // For simple links, use startsWith, but handle Dashboard (/) as a strict match to avoid highlighting it everywhere
-            const isDirectActive = item.href === "/loggedin" 
-              ? pathname === "/loggedin" 
-              : item.href && pathname.startsWith(item.href);
+            // Logic for active highlight
+            // We highlight Dashboard if: path is exactly /loggedin OR path is /loggedin/newuser
+            const isDirectActive = item.name === "Dashboard"
+              ? (pathname === "/loggedin" || pathname === "/loggedin/newuser")
+              : (item.href && pathname.startsWith(item.href));
 
             const isActive = isDirectActive || isRootActive || isSubActive;
 

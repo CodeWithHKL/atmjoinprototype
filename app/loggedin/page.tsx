@@ -41,7 +41,7 @@ const myApplications = [
 ];
 
 const phases = [
-  "Eligibility", "Altitude", "Medical", "Physical", "Interview"
+  "Verification", "Altitude", "Medical", "Physical", "Interview"
 ];
 
 export default function Dashboard() {
@@ -58,7 +58,7 @@ export default function Dashboard() {
         <header className="mb-10">
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-500">Personnel Command</span>
           <h1 className="text-3xl lg:text-4xl font-bold tracking-tighter mt-2">
-            Welcome back, <span className="text-zinc-500">Applicant.</span>
+            Welcome back, <span className="text-zinc-500">Ahmad Zaki.</span>
           </h1>
         </header>
 
@@ -69,7 +69,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-sm font-bold uppercase tracking-widest flex items-center gap-2 text-zinc-300">
                 <Activity size={16} className="text-emerald-500" /> 
-                Active Operations <span className="text-zinc-600">({myApplications.length}/2)</span>
+                Active Applications <span className="text-zinc-600">({myApplications.length}/2)</span>
               </h2>
               <Link href="/loggedin/applications/myapply" className="text-[11px] font-medium text-zinc-500 hover:text-white transition-colors">
                 View details

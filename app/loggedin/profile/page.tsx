@@ -25,7 +25,7 @@ export default function ProfilePage() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
             <div>
               <h1 className="text-4xl font-black uppercase tracking-tighter">Personnel <span className="text-emerald-500">File.</span></h1>
-              <p className="text-zinc-500 text-[11px] mt-1 uppercase font-bold tracking-[0.2em] font-mono">Candidate ID: ATM-2026-99012</p>
+              <p className="text-zinc-500 text-[11px] mt-1 uppercase font-bold tracking-[0.2em] font-mono">Applicant ID: APP-001</p>
             </div>
             
             <Link href="/loggedin/profile/edit">
@@ -51,7 +51,7 @@ export default function ProfilePage() {
                     <Fingerprint size={16} />
                   </div>
                 </div>
-                <h2 className="text-xl font-black uppercase tracking-tight leading-tight">Muhamad Haikal</h2>
+                <h2 className="text-xl font-black uppercase tracking-tight leading-tight">Ahmad Zaki</h2>
                 <p className="text-emerald-500 text-[10px] font-black uppercase tracking-[0.2em] mt-2">Active</p>
                 
                 <div className="mt-8 pt-8 border-t border-white/10">
@@ -89,18 +89,18 @@ export default function ProfilePage() {
                 </h3>
                 
                 <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 relative z-10">
-                  <DataField label="Full Name (As per IC)" value="Muhamad Haikal" />
-                  <DataField label="Identity Card Number" value="990102-14-XXXX" isMono />
-                  <DataField label="Date of Birth" value="02 JAN 1999" isMono />
-                  <DataField label="Birth Certificate Number" value="AA 882012" isMono />
+                  <DataField label="Full Name (As per IC)" value="Ahmad Zaki Bin Osman" />
+                  <DataField label="Identity Card Number" value="020412-02-0551" isMono />
+                  <DataField label="Date of Birth" value="12 APR 2002" isMono />
+                  <DataField label="Birth Certificate Number" value="BC-9988221" isMono />
                   <DataField label="Citizenship" value="Malaysian" />
                   <DataField label="Gender" value="Male" />
                   <DataField label="Race" value="Malay" />
-                  <DataField label="Ethnicity" value="Bumiputera" />
+                  <DataField label="Ethnicity" value="Malay" />
                   <DataField label="Religion" value="Islam" />
                   <DataField label="Marital Status" value="Single" />
                   <DataField label="Country of Birth" value="Malaysia" />
-                  <DataField label="Place of Birth" value="Kuala Lumpur" />
+                  <DataField label="Place of Birth" value="Hospital Sultanah Bahiyah, Alor Setar" />
                 </div>
               </section>
 
@@ -142,14 +142,14 @@ export default function ProfilePage() {
                 
                 <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">
                   <div className="md:col-span-2">
-                    <DataField label="Current Address" value="No. 24, Jalan Wangsa Maju, Seksyen 2, Setapak" />
+                    <DataField label="Current Address" value="No 14, Jalan Pahlawan 5/1, Taman Greenwood" />
                   </div>
-                  <DataField label="City / Town" value="Kuala Lumpur" />
-                  <DataField label="Postcode" value="53300" isMono />
-                  <DataField label="State" value="Wilayah Persekutuan" />
-                  <DataField label="Email Address" value="ahmad.m@email.com" />
-                  <DataField label="Mobile Phone Number" value="+60 12-345 6789" isMono />
-                  <DataField label="Home Phone Number" value="+60 3-4142 XXXX" isMono />
+                  <DataField label="City / Town" value="Alor Setar" />
+                  <DataField label="Postcode" value="05000" isMono />
+                  <DataField label="State" value="Kedah" />
+                  <DataField label="Email Address" value="zaki.osman@email.com" />
+                  <DataField label="Mobile Phone Number" value="+60 12-445 6789" isMono />
+                  <DataField label="Home Phone Number" value="+60 4-733 1122" isMono />
                 </div>
               </section>
 

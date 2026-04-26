@@ -98,7 +98,7 @@ export default function AssessmentPage() {
             {/* FLOATING PROGRESS DOCK */}
             <div className="fixed top-8 w-full px-6 z-40 pointer-events-none">
               <div className="mx-auto max-w-2xl flex items-center gap-4 bg-zinc-900/90 backdrop-blur-xl p-4 rounded-3xl border border-white/5 shadow-2xl pointer-events-auto">
-                <Link href="/loggedin/dashboard" className="h-10 w-10 flex items-center justify-center text-zinc-500 hover:text-white transition-colors">
+                <Link href="/loggedin" className="h-10 w-10 flex items-center justify-center text-zinc-500 hover:text-white transition-colors">
                     <ChevronLeft size={20} />
                 </Link>
                 <div className="flex-1 flex gap-1.5">
