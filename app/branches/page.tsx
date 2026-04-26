@@ -166,10 +166,10 @@ export default function BranchesPage() {
 
                   <div className="mt-auto">
                     <Link 
-                      href={branch.path} 
+                      href="/careers/role" 
                       className="group/btn relative w-full flex items-center justify-between p-6 rounded-2xl bg-white text-black transition-all hover:bg-emerald-400 hover:scale-[1.02] active:scale-95 shadow-2xl"
                     >
-                      <span className="text-[11px] font-black uppercase tracking-[0.2em]">Explore Branch</span>
+                      <span className="text-[11px] font-black uppercase tracking-[0.2em]">Explore Careers</span>
                       <ArrowRight className="group-hover/btn:translate-x-2 transition-transform" size={18} />
                     </Link>
                   </div>

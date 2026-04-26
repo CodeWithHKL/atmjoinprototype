@@ -134,7 +134,7 @@ export default function GuidePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
-                  href="/signup" 
+                  href="/login" 
                   className="flex items-center justify-center gap-2 h-12 px-8 rounded-xl bg-white text-black text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition-all hover:scale-105 active:scale-95"
                 >
                   Begin Registration <ArrowRight size={14} />

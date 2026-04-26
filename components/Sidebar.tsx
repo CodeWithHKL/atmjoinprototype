@@ -16,7 +16,7 @@ interface SidebarProps {
 
 const menuItems = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/loggedin" },
-    { 
+  { 
     name: "Recruitment List", 
     icon: List,
     href: "/loggedin/recruitment",
@@ -63,10 +63,13 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
     setIsMobileOpen(false);
   }, [pathname]);
 
-  // Handle active menu expansion
+  // Handle active menu expansion on page load/navigation
   useEffect(() => {
     menuItems.forEach(item => {
-      if (item.subItems && (pathname.startsWith(item.rootPath || '') || item.subItems.some(sub => sub.href === pathname))) {
+      const isSubPathActive = item.subItems?.some(sub => pathname.startsWith(sub.href));
+      const isRootPathActive = item.rootPath && pathname.startsWith(item.rootPath);
+      
+      if (isSubPathActive || isRootPathActive) {
         setOpenMenus(prev => prev.includes(item.name) ? prev : [...prev, item.name]);
       }
     });
@@ -138,9 +141,16 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
         {/* NAV ITEMS */}
         <nav className="flex-1 space-y-2 overflow-y-auto px-3 py-6 lg:py-0 no-scrollbar">
           {menuItems.map((item) => {
-            const isActiveParent = item.subItems?.some(sub => pathname === sub.href) || 
-                                   (item.rootPath && pathname.startsWith(item.rootPath));
-            const isDirectActive = pathname === item.href;
+            // Logic to determine if this specific section is active
+            const isRootActive = item.rootPath && pathname.startsWith(item.rootPath);
+            const isSubActive = item.subItems?.some(sub => pathname.startsWith(sub.href));
+            
+            // For simple links, use startsWith, but handle Dashboard (/) as a strict match to avoid highlighting it everywhere
+            const isDirectActive = item.href === "/loggedin" 
+              ? pathname === "/loggedin" 
+              : item.href && pathname.startsWith(item.href);
+
+            const isActive = isDirectActive || isRootActive || isSubActive;
 
             return (
               <div key={item.name}>
@@ -150,11 +160,11 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
                       onClick={() => toggleMenu(item.name)}
                       className={`flex w-full items-center rounded-2xl px-3 py-3 transition-all group 
                         ${isCollapsed ? "lg:justify-center" : "justify-between"} 
-                        ${isActiveParent ? "bg-emerald-500/10 text-emerald-400" : "text-zinc-400 hover:bg-white/5 hover:text-white"}
+                        ${isActive ? "bg-emerald-500/10 text-emerald-400" : "text-zinc-400 hover:bg-white/5 hover:text-white"}
                       `}
                     >
                       <div className="flex items-center gap-4">
-                        <item.icon size={22} className={`${isActiveParent ? "text-emerald-500" : "group-hover:text-emerald-400"}`} />
+                        <item.icon size={22} className={`${isActive ? "text-emerald-500" : "group-hover:text-emerald-400"}`} />
                         <span className={`text-[11px] font-bold uppercase tracking-widest animate-in fade-in slide-in-from-left-2 ${isCollapsed ? "lg:hidden" : "block"}`}>
                           {item.name}
                         </span>
@@ -164,17 +174,20 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
                     
                     {(!isCollapsed || isMobileOpen) && openMenus.includes(item.name) && (
                       <div className="mt-1 ml-4 flex flex-col gap-1 border-l border-white/10 pl-6 animate-in slide-in-from-top-2 duration-300">
-                        {item.subItems.map(sub => (
-                          <Link 
-                            key={sub.name} 
-                            href={sub.href}
-                            className={`py-2 text-[9px] font-black uppercase tracking-[0.2em] transition-colors ${
-                              pathname === sub.href ? "text-emerald-400" : "text-zinc-500 hover:text-zinc-200"
-                            }`}
-                          >
-                            {sub.name}
-                          </Link>
-                        ))}
+                        {item.subItems.map(sub => {
+                          const isThisSubActive = pathname.startsWith(sub.href);
+                          return (
+                            <Link 
+                              key={sub.name} 
+                              href={sub.href}
+                              className={`py-2 text-[9px] font-black uppercase tracking-[0.2em] transition-colors ${
+                                isThisSubActive ? "text-emerald-400" : "text-zinc-500 hover:text-zinc-200"
+                              }`}
+                            >
+                              {sub.name}
+                            </Link>
+                          );
+                        })}
                       </div>
                     )}
                   </div>
@@ -183,10 +196,10 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
                     href={item.href || '#'}
                     className={`flex items-center gap-4 rounded-2xl px-3 py-3 transition-all group 
                       ${isCollapsed ? "lg:justify-center" : ""} 
-                      ${isDirectActive ? "bg-emerald-500/10 text-emerald-400" : "text-zinc-400 hover:bg-white/5 hover:text-white"}
+                      ${isActive ? "bg-emerald-500/10 text-emerald-400" : "text-zinc-400 hover:bg-white/5 hover:text-white"}
                     `}
                   >
-                    <item.icon size={22} />
+                    <item.icon size={22} className={`${isActive ? "text-emerald-500" : "group-hover:text-emerald-400"}`} />
                     <span className={`text-[11px] font-bold uppercase tracking-widest animate-in fade-in slide-in-from-left-2 ${isCollapsed ? "lg:hidden" : "block"}`}>
                       {item.name}
                     </span>

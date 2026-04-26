@@ -41,10 +41,10 @@ export default function Home() {
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-white uppercase leading-none">
-              Recruitment Portal
+              ATM JOIN
             </h1>
             <p className="mt-2 text-[10px] text-zinc-300 uppercase tracking-[0.3em] font-bold">
-              Unified Military Branches
+              Unified Military Branches<br />Recruitment Portal
             </p>
           </div>
         </div>

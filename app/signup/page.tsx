@@ -41,10 +41,10 @@ export default function Signup() {
             />
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-white uppercase">
-            New Enlistment
+            Register
           </h1>
           <p className="text-[10px] text-zinc-300 uppercase tracking-[0.3em] font-bold">
-            Personal Record Initialization
+            New Account Registration
           </p>
         </div>
 

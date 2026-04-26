@@ -9,39 +9,38 @@ import {
   Clock,
   History,
   Download,
-  Trash2,
   CheckCircle2,
   Target
 } from "lucide-react";
 
 const applications = [
   {
-    id: "APP-8829",
-    branch: "Navy (TLDM)",
-    branchLogo: "/TLDM_Logo.png",
-    role: "Officer Cadet",
+    id: "APP-4412",
+    branch: "Army (TDM)",
+    branchLogo: "/TDM_Logo.png",
+    role: "Regular Officer",
     status: "Assessment",
-    currentTask: "Aptitude Test",
-    location: "KD Sultan Idris, Lumut, Perak",
+    currentTask: "Medical Exam",
+    location: "Kem Perdana Sungai Besi, Kuala Lumpur",
     date: "22 May 2026",
     time: "0800 HRS",
     phases: [
       { name: "Eligibility", status: "completed", date: "02 May" },
-      { name: "Aptitude Test", status: "current", date: "22 May" },
-      { name: "Medical Exam", status: "pending", date: "TBA" },
+      { name: "Aptitude Test", status: "completed", date: "22 May" },
+      { name: "Medical Exam", status: "current", date: "TBA" },
       { name: "Physical Test", status: "pending", date: "TBA" },
       { name: "Final Interview", status: "pending", date: "TBA" },
     ]
   },
   {
-    id: "APP-9012",
-    branch: "Army (TDM)",
-    branchLogo: "/TDM_Logo.png",
+    id: "APP-5590",
+    branch: "Navy (TLDM)",
+    branchLogo: "/TLDM_Logo.png",
     role: "Enlisted Personnel",
     status: "Verification",
     currentTask: "Eligibility Check",
-    location: "Pusat Latihan Tentera Darat (PULADA)",
-    date: "Pending Verification",
+    location: "KD Sultan Idris, Lumut, Perak",
+    date: "TBD",
     time: "TBA",
     phases: [
       { name: "Eligibility", status: "current", date: "Processing" },
@@ -82,7 +81,7 @@ export default function MyApplications() {
                 <div className={`h-2.5 w-2.5 rounded-full transition-colors duration-500 ${activeCount >= 1 ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" : "bg-zinc-800"}`} />
                 <div className={`h-2.5 w-2.5 rounded-full transition-colors duration-500 ${activeCount >= 2 ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" : "bg-zinc-800"}`} />
               </div>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Authorization Limit</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Application Limit</span>
             </div>
           </div>
         </div>
@@ -111,7 +110,7 @@ export default function MyApplications() {
                   
                   <div className="flex flex-col">
                     <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest mb-1 flex items-center gap-1.5">
-                      <Target size={10} /> Active Objective
+                      <Target size={10} /> Current Phase
                     </span>
                     <span className="text-[13px] font-bold uppercase text-white tracking-tight">
                       {app.currentTask}
@@ -122,9 +121,6 @@ export default function MyApplications() {
                 <div className="flex items-center gap-3">
                   <button className="h-11 px-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-300 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition-all">
                     <Download size={14} /> Slips
-                  </button>
-                  <button className="h-11 px-5 rounded-xl bg-red-500/5 border border-red-500/20 hover:bg-red-500 hover:text-white text-red-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition-all group">
-                    <Trash2 size={14} /> Withdraw
                   </button>
                 </div>
               </div>

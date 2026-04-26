@@ -51,8 +51,8 @@ export default function ProfilePage() {
                     <Fingerprint size={16} />
                   </div>
                 </div>
-                <h2 className="text-xl font-black uppercase tracking-tight leading-tight">Ahmad bin Mustaffa</h2>
-                <p className="text-emerald-500 text-[10px] font-black uppercase tracking-[0.2em] mt-2">Active Applicant Profile</p>
+                <h2 className="text-xl font-black uppercase tracking-tight leading-tight">Muhamad Haikal</h2>
+                <p className="text-emerald-500 text-[10px] font-black uppercase tracking-[0.2em] mt-2">Active</p>
                 
                 <div className="mt-8 pt-8 border-t border-white/10">
                   <p className="text-[10px] font-bold text-zinc-500 leading-relaxed italic uppercase tracking-tighter">
@@ -89,7 +89,7 @@ export default function ProfilePage() {
                 </h3>
                 
                 <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 relative z-10">
-                  <DataField label="Full Name (As per IC)" value="Ahmad bin Mustaffa" />
+                  <DataField label="Full Name (As per IC)" value="Muhamad Haikal" />
                   <DataField label="Identity Card Number" value="990102-14-XXXX" isMono />
                   <DataField label="Date of Birth" value="02 JAN 1999" isMono />
                   <DataField label="Birth Certificate Number" value="AA 882012" isMono />

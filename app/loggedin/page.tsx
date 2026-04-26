@@ -15,27 +15,27 @@ import {
 // Mock data for the 2 application slots
 const myApplications = [
   {
-    id: "APP-8829",
-    branch: "Navy (TLDM)",
-    branchLogo: "/TLDM_Logo.png",
-    role: "Officer Cadet",
-    phase: 1, // Altitude Test
+    id: "APP-4412",
+    branch: "Army (TDM)",
+    branchLogo: "/TDM_Logo.png",
+    role: "Regular Officer",
+    phase: 2, // Altitude Test (or equivalent screening)
     status: "Action Required",
     date: "12 May 2026",
     time: "0800 HRS",
-    location: "KD Sultan Idris, Lumut",
+    location: "Kem Perdana Sungai Besi, KL",
     progress: 40,
   },
   {
-    id: "APP-9012",
-    branch: "Army (TDM)",
-    branchLogo: "/TDM_Logo.png",
+    id: "APP-5590",
+    branch: "Navy (TLDM)",
+    branchLogo: "/TLDM_Logo.png",
     role: "Enlisted Personnel",
     phase: 0, // System Verification
     status: "In Progress",
     date: "Processing",
     time: "TBD",
-    location: "HQ Personnel, Kuala Lumpur",
+    location: "KD Sultan Idris, Lumut",
     progress: 20,
   }
 ];
