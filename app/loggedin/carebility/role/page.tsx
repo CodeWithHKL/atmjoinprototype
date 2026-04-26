@@ -162,12 +162,12 @@ export default function CareersPage() {
                     {career.desc}
                   </p>
 
-                  <Link 
-                    href={`/loggedin/carebility/role/${career.id}`}
-                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-white group-hover:gap-4 transition-all"
+                  <button 
+                    type="button"
+                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-white group-hover:gap-4 transition-all cursor-default"
                   >
                     View Information <ArrowRight size={14} className="text-emerald-500" />
-                  </Link>
+                  </button>
                 </div>
               ))}
             </div>
