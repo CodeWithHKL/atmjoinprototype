@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -13,13 +13,13 @@ export default function Signup() {
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     // Logic for account creation goes here
-    router.push("/signup/verify"); // Updated navigation
+    router.push("/signup/verify");
   };
 
   return (
     <div 
       className="relative flex min-h-screen flex-col items-center justify-center bg-zinc-900 font-sans text-zinc-900 dark:text-zinc-100 p-4 overflow-y-auto bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/military.png')" }}
+      style={{ backgroundImage: "url('/Camo.jpg')" }}
     >
       
       {/* Dark Overlay */}
@@ -131,15 +131,17 @@ export default function Signup() {
           </button>
         </form>
 
-        {/* Navigation Back */}
-        <div className="flex flex-col items-center gap-4 border-t border-white/10 pt-6">
-          <Link 
-            href="/login" 
-            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-zinc-400 hover:text-white transition-colors"
-          >
-            <ArrowLeft size={14} />
-            Login
-          </Link>
+        {/* Navigation Section */}
+        <div className="flex flex-col items-center border-t border-white/10 pt-6">
+          <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-400">
+            Already have an account?{" "}
+            <Link 
+              href="/login" 
+              className="font-bold text-white underline decoration-emerald-500/50 underline-offset-4 hover:text-emerald-400 transition-colors"
+            >
+              Log in
+            </Link>
+          </p>
         </div>
       </main>
 

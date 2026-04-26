@@ -27,7 +27,7 @@ const armyIntakes = [
     slots: 200,
     closingDate: "10 April 2026 - 15 Jun 2026",
     location: "MTD Sungai Besi",
-    currentPhase: 1, // Altitude
+    currentPhase: 2,
   },
   {
     id: "INTK-TDM-E-26-04",
@@ -144,8 +144,8 @@ export default function IntakeManagement() {
       {/* HEADER */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Intake <span className="text-emerald-500">Monitor</span></h1>
-          <p className="text-zinc-500 text-xs font-medium mt-1">Army (TDM) Recruitment Command</p>
+          <h1 className="text-3xl font-bold tracking-tight">Intake <span className="text-emerald-500">Management</span></h1>
+          <p className="text-zinc-500 text-xs font-medium mt-1">MANAGE INTAKES AND APPLICATIONS</p>
         </div>
       </div>
 

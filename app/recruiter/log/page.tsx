@@ -56,7 +56,7 @@ export default function LogPage() {
              </h1>
           </div>
           <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.3em]">
-            Protocol Audit Trail & Telemetry Events
+            SYSTEM STATUS & ACTIVITY LOGS
           </p>
         </div>
 

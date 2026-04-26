@@ -22,7 +22,7 @@ const navItems = [
   { name: "Mail", href: "/recruiter/mail", icon: Mail },
   { name: "Applicant List", href: "/recruiter/applicants", icon: Users2 },
   { name: "Log", href: "/recruiter/log", icon: FileText },
-  { name: "System Settings", href: "/recruiter/setting", icon: Settings },
+  { name: "Settings", href: "/recruiter/setting", icon: Settings },
 ];
 
 export default function RecruiterSidebar() {
@@ -61,7 +61,7 @@ export default function RecruiterSidebar() {
           {!isCollapsed && (
             <div className="flex flex-col">
               <span className="text-lg font-black tracking-tighter uppercase leading-none text-white">
-                Command
+                TDM
               </span>
               <p className="text-[9px] font-bold text-zinc-500 uppercase tracking-[0.2em] mt-1">
                 Recruitment
@@ -105,11 +105,11 @@ export default function RecruiterSidebar() {
           {!isCollapsed && (
             <div className="flex items-center gap-3 mb-3">
               <div className="h-8 w-8 min-w-[32px] rounded-full bg-zinc-800 border border-emerald-500/30 flex items-center justify-center">
-                <span className="text-[10px] font-bold text-white">HQ</span>
+                <span className="text-[10px] font-bold text-white">Z</span>
               </div>
               <div className="overflow-hidden">
                 <p className="text-[10px] font-bold uppercase tracking-tight whitespace-nowrap text-white">Kapt. Zulkifli</p>
-                <p className="text-[9px] text-emerald-500 font-bold uppercase">Admin</p>
+                <p className="text-[9px] text-emerald-500 font-bold uppercase">Recruiter</p>
               </div>
             </div>
           )}

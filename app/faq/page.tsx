@@ -56,106 +56,115 @@ export default function FAQPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-emerald-500/30 flex flex-col">
+    <div className="relative min-h-screen bg-zinc-950 text-white font-sans selection:bg-emerald-500/30 flex flex-col">
       
-      {/* GLOBAL NAVIGATION */}
-      <Navbar />
+      {/* GLOBAL FIXED BACKGROUND */}
+      <div 
+        className="fixed inset-0 z-0 bg-[url('/Camo.jpg')] bg-cover bg-center bg-fixed opacity-10" 
+        aria-hidden="true"
+      />
 
-      {/* HEADER SECTION */}
-      <header className="relative pt-48 pb-16 px-6 overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20 grayscale bg-[url('/military.png')] bg-cover bg-center" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-950" />
-        
-        <div className="relative z-20 mx-auto max-w-7xl">
-          <Link href="/" className="group inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white mb-8 transition-colors">
-            <ChevronLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
-            Back to Home
-          </Link>
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <Navbar />
+
+        {/* HEADER SECTION */}
+        <header className="relative pt-48 pb-16 px-6 overflow-hidden">
+          {/* Previous /military.png background removed */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-950" />
           
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
-            Information <span className="text-emerald-500">Center.</span>
-          </h1>
-          
-          <p className="mt-4 max-w-xl text-zinc-400 font-medium leading-relaxed">
-            Commonly asked questions regarding the ATMJOIN enlistment process and service requirements. 
-            Search through our intelligence database for protocol clarity.
-          </p>
-        </div>
-      </header>
+          <div className="relative z-20 mx-auto max-w-7xl">
+            <Link href="/" className="group inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white mb-8 transition-colors">
+              <ChevronLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
+              Back to Home
+            </Link>
+            
+            <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
+              Information <span className="text-emerald-500">Center.</span>
+            </h1>
+            
+            <p className="mt-4 max-w-xl text-zinc-400 font-medium leading-relaxed">
+              Commonly asked questions regarding the ATMJOIN enlistment process and service requirements. 
+              Search through our intelligence database for protocol clarity.
+            </p>
+          </div>
+        </header>
 
-      {/* FAQ CONTENT */}
-      <main className="relative z-10 flex-grow mx-auto max-w-3xl w-full px-6 pb-24">
-        <div className="space-y-12">
-          {faqData.map((section, sectionIdx) => (
-            <div key={sectionIdx}>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-px flex-1 bg-white/10" />
-                <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500 whitespace-nowrap">
-                  {section.category}
-                </h2>
-                <div className="h-px flex-1 bg-white/10" />
-              </div>
+        {/* FAQ CONTENT */}
+        <main className="relative z-10 flex-grow mx-auto max-w-3xl w-full px-6 pb-24">
+          <div className="space-y-12">
+            {faqData.map((section, sectionIdx) => (
+              <div key={sectionIdx}>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-px flex-1 bg-white/10" />
+                  <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500 whitespace-nowrap">
+                    {section.category}
+                  </h2>
+                  <div className="h-px flex-1 bg-white/10" />
+                </div>
 
-              <div className="space-y-3">
-                {section.questions.map((item, itemIdx) => {
-                  const id = `${sectionIdx}-${itemIdx}`;
-                  const isOpen = openIndex === id;
+                <div className="space-y-3">
+                  {section.questions.map((item, itemIdx) => {
+                    const id = `${sectionIdx}-${itemIdx}`;
+                    const isOpen = openIndex === id;
 
-                  return (
-                    <div 
-                      key={id} 
-                      className={`overflow-hidden rounded-2xl border transition-all duration-300 ${
-                        isOpen ? "border-emerald-500/30 bg-white/5 shadow-2xl" : "border-white/5 bg-zinc-900/50 hover:border-white/10"
-                      }`}
-                    >
-                      <button 
-                        onClick={() => toggleFAQ(id)}
-                        className="flex w-full items-center justify-between p-5 text-left"
-                      >
-                        <span className={`text-sm font-bold uppercase tracking-wide transition-colors ${isOpen ? "text-emerald-400" : "text-zinc-300"}`}>
-                          {item.q}
-                        </span>
-                        <ChevronDown 
-                          size={18} 
-                          className={`text-zinc-500 transition-transform duration-300 ${isOpen ? "rotate-180 text-emerald-400" : ""}`} 
-                        />
-                      </button>
-                      
+                    return (
                       <div 
-                        className={`transition-all duration-300 ease-in-out ${
-                          isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                        key={id} 
+                        className={`overflow-hidden rounded-2xl border transition-all duration-300 backdrop-blur-xl ${
+                          isOpen ? "border-emerald-500/30 bg-black/60 shadow-2xl" : "border-white/5 bg-black/40 hover:border-white/10"
                         }`}
                       >
-                        <div className="p-5 pt-0 text-sm text-zinc-400 font-medium leading-relaxed border-t border-white/5">
-                          {item.a}
+                        <button 
+                          onClick={() => toggleFAQ(id)}
+                          className="flex w-full items-center justify-between p-5 text-left"
+                        >
+                          <span className={`text-sm font-bold uppercase tracking-wide transition-colors ${isOpen ? "text-emerald-400" : "text-zinc-300"}`}>
+                            {item.q}
+                          </span>
+                          <ChevronDown 
+                            size={18} 
+                            className={`text-zinc-500 transition-transform duration-300 ${isOpen ? "rotate-180 text-emerald-400" : ""}`} 
+                          />
+                        </button>
+                        
+                        <div 
+                          className={`transition-all duration-300 ease-in-out ${
+                            isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                          }`}
+                        >
+                          <div className="p-5 pt-0 text-sm text-zinc-400 font-medium leading-relaxed border-t border-white/5">
+                            {item.a}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* SUPPORT TICKET CTA */}
+          <div className="mt-20 p-8 rounded-[2rem] bg-black/40 backdrop-blur-xl border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 transition-all hover:border-emerald-500/20">
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
+                <MessageSquare size={24} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold uppercase">Still have questions?</h3>
+                <p className="text-xs text-zinc-500 font-medium">Our support command is available 24/7 to assist you.</p>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* SUPPORT TICKET CTA */}
-        <div className="mt-20 p-8 rounded-[2rem] bg-zinc-900 border border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 transition-all hover:border-emerald-500/20">
-          <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
-              <MessageSquare size={24} />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold uppercase">Still have questions?</h3>
-              <p className="text-xs text-zinc-500 font-medium">Our support command is available 24/7 to assist you.</p>
-            </div>
+            <Link href="/help">
+              <button className="h-11 px-8 rounded-xl bg-white text-black text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition-all hover:scale-105 active:scale-95 whitespace-nowrap">
+                Helpdesk
+              </button>
+            </Link>
           </div>
-          <button className="h-11 px-8 rounded-xl bg-white text-black text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition-all hover:scale-105 active:scale-95 whitespace-nowrap">
-            Contact Support
-          </button>
-        </div>
-      </main>
+        </main>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }

@@ -20,7 +20,7 @@ const activeIntakes = [
     male: 868,
     female: 372,
     slots: 200,
-    closingDate: "15 Jun 2026",
+    closingDate: "10 April 2026 - 15 Jun 2026",
     currentPhase: 2, 
   },
   {
@@ -31,7 +31,7 @@ const activeIntakes = [
     male: 3827,
     female: 675,
     slots: 1500,
-    closingDate: "20 May 2026",
+    closingDate: "7 March 2026 - 20 May 2026",
     currentPhase: 3, 
   }
 ];
@@ -44,20 +44,20 @@ export default function CommandDashboard() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-white/5 pb-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-white">
-            Command <span className="text-emerald-500">Analytics</span>
+            Recruitment <span className="text-emerald-500">Dashboard</span>
           </h1>
           <p className="text-zinc-500 text-xs font-medium mt-1 uppercase tracking-wider">
-            Recruitment Command HQ (TDM)
+            Analytics & Status
           </p>
         </div>
         <div className="flex gap-8 text-right font-mono">
           <div>
-            <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">Active Streams</p>
-            <p className="text-xl font-bold text-white">02 LIVE</p>
+            <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">Active Intake</p>
+            <p className="text-xl font-bold text-white">02</p>
           </div>
           <div>
-            <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">System Status</p>
-            <p className="text-xl font-bold text-emerald-500 tracking-tight">NOMINAL</p>
+            <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">Branch</p>
+            <p className="text-xl font-bold text-emerald-500 tracking-tight">TDM</p>
           </div>
         </div>
       </div>
@@ -102,7 +102,7 @@ export default function CommandDashboard() {
                       </h2>
                       <div className="flex items-center gap-2 text-zinc-500">
                         <CalendarDays size={14} className="text-zinc-500" />
-                        <span className="text-[11px] font-medium tracking-wide">Closing: {intake.closingDate}</span>
+                        <span className="text-[11px] font-medium tracking-wide">Intake Date: {intake.closingDate}</span>
                       </div>
                     </div>
                     

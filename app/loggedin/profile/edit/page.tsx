@@ -1,252 +1,326 @@
 "use client";
 
-import React from "react";
+import React, { useState, ChangeEvent } from "react";
 import Link from "next/link";
 import { 
-  ChevronLeft, 
-  Save, 
-  User, 
-  MapPin, 
-  GraduationCap, 
-  AlertCircle,
-  Camera,
-  UploadCloud,
-  FileText,
-  Plus,
-  Trash2,
-  Paperclip
+  User, MapPin, Fingerprint, 
+  Save, X, GraduationCap, 
+  Upload, ChevronLeft, FileText,
+  Trash2, Plus, Paperclip
 } from "lucide-react";
 
-export default function EditProfile() {
+// 1. Define the interface for the Form State
+interface FormData {
+  fullName: string;
+  icNumber: string;
+  dob: string;
+  birthCert: string;
+  citizenship: string;
+  gender: string;
+  race: string;
+  ethnicity: string;
+  religion: string;
+  maritalStatus: string;
+  countryBirth: string;
+  placeBirth: string;
+  highestQual: string;
+  uniName: string;
+  fieldStudy: string;
+  cgpa: string;
+  gradYear: string;
+  secondaryQual: string;
+  schoolName: string;
+  results: string;
+  completionYear: string;
+  address: string;
+  city: string;
+  postcode: string;
+  state: string;
+  email: string;
+  mobile: string;
+  homePhone: string;
+}
+
+// 2. Define Prop Interfaces for Helpers
+interface InputFieldProps {
+  label: string;
+  name: keyof FormData;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  type?: string;
+  isMono?: boolean;
+}
+
+interface SelectFieldProps {
+  label: string;
+  name: keyof FormData;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  options: string[];
+}
+
+export default function ProfileEditPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState<FormData>({
+    fullName: "Ahmad bin Mustaffa",
+    icNumber: "990102-14-XXXX",
+    dob: "1999-01-02",
+    birthCert: "AA 882012",
+    citizenship: "Malaysian",
+    gender: "Male",
+    race: "Malay",
+    ethnicity: "Bumiputera",
+    religion: "Islam",
+    maritalStatus: "Single",
+    countryBirth: "Malaysia",
+    placeBirth: "Kuala Lumpur",
+    highestQual: "Bachelor's Degree (Hons)",
+    uniName: "Universiti Malaya",
+    fieldStudy: "Computer Science (Cybersecurity)",
+    cgpa: "3.85 / 4.00",
+    gradYear: "2022",
+    secondaryQual: "Sijil Pelajaran Malaysia (SPM)",
+    schoolName: "SMK Victoria, Kuala Lumpur",
+    results: "9A 1B",
+    completionYear: "2016",
+    address: "No. 24, Jalan Wangsa Maju, Seksyen 2, Setapak",
+    city: "Kuala Lumpur",
+    postcode: "53300",
+    state: "Wilayah Persekutuan",
+    email: "ahmad.m@email.com",
+    mobile: "+60 12-345 6789",
+    homePhone: "+60 3-4142 XXXX"
+  });
+
+  // Fixed the index signature error by casting e.target.name
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ 
+      ...prev, 
+      [name as keyof FormData]: value 
+    }));
+  };
+
   return (
-    <div className="min-h-screen bg-zinc-950 text-white p-4 lg:p-8 font-sans">
-      <div className="max-w-5xl mx-auto">
-        
-        {/* HEADER ACTIONS */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
-          <div>
-            <Link 
-              href="/loggedin/profile" 
-              className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white transition-colors mb-4"
-            >
-              <ChevronLeft size={14} /> Discard Changes
-            </Link>
-            <h1 className="text-4xl font-black uppercase tracking-tighter">Edit <span className="text-emerald-500">Personnel Record.</span></h1>
-          </div>
+    <div className="relative min-h-screen bg-zinc-950 text-white font-sans selection:bg-emerald-500/30">
+      <div className="fixed inset-0 z-0 bg-[url('/Camo.jpg')] bg-cover bg-center bg-fixed opacity-[0.08]" aria-hidden="true" />
+
+      <div className="relative z-10 p-4 lg:p-8">
+        <div className="max-w-6xl mx-auto">
           
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            <Link 
-              href="/loggedin/profile"
-              className="flex-1 md:flex-none px-6 py-4 rounded-xl border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:bg-white/5 transition-all text-center"
-            >
-              Cancel
-            </Link>
-            <button className="flex-1 md:flex-none px-8 py-4 rounded-xl bg-emerald-500 text-black text-[10px] font-bold uppercase tracking-widest hover:bg-emerald-400 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
-              <Save size={16} /> Save Changes
-            </button>
-          </div>
-        </div>
-
-        {/* SECTION: IDENTITY PORTRAIT */}
-        <section className="mb-8 rounded-[2.5rem] bg-zinc-900 border border-white/5 p-8 lg:p-10">
-          <div className="flex items-center gap-3 mb-10 border-b border-white/5 pb-6">
-            <Camera size={18} className="text-emerald-500" />
-            <h3 className="text-[11px] font-bold uppercase tracking-[0.3em] text-white">Identity Portrait</h3>
-          </div>
-          
-          <div className="flex flex-col md:flex-row md:items-center gap-8">
-            <div className="relative mx-auto md:mx-0 w-32 h-32 shrink-0">
-                <div className="w-full h-full rounded-[2.5rem] bg-zinc-800 border-4 border-zinc-950 overflow-hidden flex items-center justify-center">
-                   <User size={60} className="text-zinc-700" />
-                </div>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+            <div>
+              <Link href="/loggedin/profile" className="flex items-center gap-2 text-zinc-500 hover:text-emerald-500 transition-colors mb-2 group">
+                <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+                <span className="text-[10px] font-black uppercase tracking-widest">Return to File</span>
+              </Link>
+              <h1 className="text-4xl font-black uppercase tracking-tighter">Edit <span className="text-emerald-500">Personnel Record.</span></h1>
             </div>
-
-            <div className="flex-1 flex flex-col md:flex-row md:items-center gap-6">
-                <div className="flex-1 border-2 border-dashed border-white/10 rounded-2xl p-6 bg-zinc-950/50 hover:border-emerald-500/30 hover:bg-emerald-500/[0.02] cursor-pointer transition-all group text-center">
-                    <UploadCloud size={24} className="mx-auto text-zinc-600 group-hover:text-emerald-500 mb-3 transition-colors" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-300">Choose New Image</span>
-                    <p className="text-[9px] font-medium text-zinc-600 mt-1 uppercase tracking-tighter">JPEG, PNG • Max 500kb</p>
-                </div>
-                
-                <div className="flex-1 space-y-3 rounded-2xl bg-white/[0.02] border border-white/5 p-6">
-                   <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 block">Portrait protocol</span>
-                   <p className="text-[11px] font-medium text-zinc-400 leading-relaxed">
-                     Image must be a formal passport-style portrait. Ensure face is clear against a neutral background.
-                   </p>
-                </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION: DIGITAL DOSSIER (DOCUMENT UPLOADS) */}
-        <FormSection 
-          title="Digital Dossier Management" 
-          icon={<FileText size={18} className="text-emerald-500" />}
-        >
-          <div className="space-y-4">
-            <p className="text-[11px] font-medium text-zinc-500 mb-6 italic">Upload clear PDF scans of your original documents. Max 2MB per file.</p>
             
-            <div className="grid gap-4">
-              <DocumentUploadRow title="Identification Card" filename="ic_front_back.pdf" date="Uploaded 02 May 2026" />
-              <DocumentUploadRow title="Birth Certificate" filename="birth_cert_final.pdf" date="Uploaded 02 May 2026" />
-              <DocumentUploadRow title="Degree Transcript" filename="No file chosen" isMissing />
-              <DocumentUploadRow title="Degree Transcript" filename="No file chosen" isMissing />
+            <div className="flex gap-4">
+              <Link href="/loggedin/profile">
+                <button className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:bg-zinc-800 transition-all">
+                  Cancel
+                </button>
+              </Link>
+              <button className="px-8 py-3 rounded-xl bg-emerald-500 text-black text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition-all flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+                <Save size={14} /> Save Changes
+              </button>
             </div>
-
-            <button className="w-full mt-4 flex items-center justify-center gap-2 py-4 rounded-xl border border-dashed border-white/10 text-[10px] font-bold uppercase tracking-widest text-zinc-500 hover:text-emerald-500 hover:border-emerald-500/50 hover:bg-emerald-500/[0.02] transition-all">
-              <Plus size={14} /> Add Supplemental Document
-            </button>
           </div>
-        </FormSection>
 
-        {/* SECTION: PERSONAL IDENTITY */}
-        <div className="mt-8 space-y-8">
-          <FormSection 
-            title="Personal Identity" 
-            icon={<User size={18} className="text-emerald-500" />}
-          >
-            <div className="grid md:grid-cols-2 gap-6">
-              <InputField label="Full Name (As per IC)" defaultValue="AHMAD BIN MUSTAFFA" />
-              <InputField label="Identity Card Number" defaultValue="990102-14-XXXX" />
-              <InputField label="Date of Birth" type="date" defaultValue="1999-01-02" />
-              <InputField label="Birth Certificate Number" defaultValue="AA 882012" />
-              
-              <SelectField label="Citizenship" options={["Malaysian", "Non-Malaysian"]} defaultValue="Malaysian" />
-              <SelectField label="Gender" options={["Male", "Female"]} defaultValue="Male" />
-              <SelectField label="Religion" options={["Islam", "Christian", "Buddhist", "Hindu", "Sikh", "Other"]} defaultValue="Islam" />
-              <SelectField label="Race" options={["Malay", "Chinese", "Indian", "Other"]} defaultValue="Malay" />
-              <InputField label="Ethnicity" defaultValue="Bumiputera" />
-              <SelectField label="Marital Status" options={["Single", "Married", "Divorced", "Widowed"]} defaultValue="Single" />
-              <InputField label="Country of Birth" defaultValue="Malaysia" />
-              <InputField label="Place of Birth" defaultValue="Kuala Lumpur" />
-            </div>
-          </FormSection>
+          <div className="grid lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-4 space-y-6">
+              <div className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 text-center shadow-2xl">
+                <div className="relative mx-auto w-32 h-32 mb-6 group cursor-pointer">
+                  <div className="w-full h-full rounded-[2.5rem] bg-zinc-900 border-2 border-dashed border-white/10 flex flex-col items-center justify-center group-hover:border-emerald-500/50 transition-all">
+                    <User size={40} className="text-zinc-700 group-hover:text-emerald-500" />
+                    <span className="text-[8px] font-black uppercase tracking-tighter text-zinc-500 mt-2">Update Photo</span>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 h-8 w-8 bg-emerald-500 rounded-lg flex items-center justify-center text-black shadow-lg">
+                    <Upload size={14} />
+                  </div>
+                </div>
+                <h2 className="text-lg font-black uppercase">{formData.fullName}</h2>
+                <p className="text-emerald-500 text-[10px] font-black uppercase tracking-[0.2em] mt-1">Personnel ID: ATM-2026-99012</p>
+              </div>
 
-          {/* SECTION: EDUCATION */}
-          <FormSection 
-            title="Education History" 
-            icon={<GraduationCap size={18} className="text-emerald-500" />}
-          >
-            <div className="space-y-8">
-              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
-                <p className="text-[10px] font-bold uppercase text-zinc-500 mb-6 tracking-widest">Tertiary Level</p>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <SelectField label="Highest Qualification" options={["Bachelor's Degree (Hons)", "Diploma", "Master's Degree"]} defaultValue="Bachelor's Degree (Hons)" />
-                  <InputField label="Institution Name" defaultValue="Universiti Malaya" />
-                  <InputField label="Field of Study" defaultValue="Computer Science (Cybersecurity)" />
-                  <InputField label="CGPA / Grade" defaultValue="3.85 / 4.00" />
-                  <InputField label="Graduation Year" defaultValue="2022" />
+              <div className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 shadow-2xl">
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 mb-6 flex items-center justify-between">
+                  <span className="flex items-center gap-2"><FileText size={14} className="text-emerald-500" /> Digital Dossier</span>
+                  <button 
+                    onClick={() => setIsModalOpen(true)}
+                    className="text-emerald-500 hover:text-white transition-colors p-1"
+                  >
+                    <Plus size={18} />
+                  </button>
+                </h3>
+                <div className="space-y-3">
+                  <FileEditItem label="Identification Card" filename="ic_front_back.pdf" />
+                  <FileEditItem label="Birth Certificate" filename="birth_cert_final.pdf" />
+                  <FileEditItem label="Degree Transcript" filename="official_transcript_um.pdf" />
+                  <FileEditItem label="SPM Certificate" filename="spm_results_2016.pdf" />
                 </div>
               </div>
             </div>
-          </FormSection>
 
-          {/* SECTION: CONTACT */}
-          <FormSection 
-            title="Contact & Location" 
-            icon={<MapPin size={18} className="text-emerald-500" />}
-          >
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="md:col-span-2">
-                <InputField label="Current Address" defaultValue="No. 24, Jalan Wangsa Maju, Seksyen 2, Setapak" />
-              </div>
-              <InputField label="Postcode" defaultValue="53300" />
-              <InputField label="City / Town" defaultValue="Kuala Lumpur" />
-              <SelectField label="State" options={["Kuala Lumpur", "Selangor", "Johor"]} defaultValue="Kuala Lumpur" />
-              <InputField label="Email Address" type="email" defaultValue="ahmad.m@email.com" />
-              <InputField label="Mobile Number" defaultValue="+60 12-345 6789" />
+            <div className="lg:col-span-8 space-y-8">
+              <section className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 lg:p-10 shadow-2xl">
+                <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-emerald-500 mb-8 flex items-center gap-2">
+                  <Fingerprint size={16} /> Personal Information
+                </h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <InputField label="Full Name (As per IC)" name="fullName" value={formData.fullName} onChange={handleChange} />
+                  <InputField label="Identity Card Number" name="icNumber" value={formData.icNumber} onChange={handleChange} isMono />
+                  <InputField label="Date of Birth" name="dob" type="date" value={formData.dob} onChange={handleChange} isMono />
+                  <InputField label="Birth Certificate Number" name="birthCert" value={formData.birthCert} onChange={handleChange} isMono />
+                  <SelectField label="Citizenship" name="citizenship" value={formData.citizenship} onChange={handleChange} options={["Malaysian", "Permanent Resident", "Other"]} />
+                  <SelectField label="Gender" name="gender" value={formData.gender} onChange={handleChange} options={["Male", "Female"]} />
+                  <SelectField label="Race" name="race" value={formData.race} onChange={handleChange} options={["Malay", "Chinese", "Indian", "Other"]} />
+                  <SelectField label="Ethnicity" name="ethnicity" value={formData.ethnicity} onChange={handleChange} options={["Bumiputera", "Non-Bumiputera"]} />
+                  <SelectField label="Religion" name="religion" value={formData.religion} onChange={handleChange} options={["Islam", "Christianity", "Buddhism", "Hinduism", "Sikhism", "Other"]} />
+                  <SelectField label="Marital Status" name="maritalStatus" value={formData.maritalStatus} onChange={handleChange} options={["Single", "Married", "Divorced"]} />
+                  <InputField label="Country of Birth" name="countryBirth" value={formData.countryBirth} onChange={handleChange} />
+                  <InputField label="Place of Birth" name="placeBirth" value={formData.placeBirth} onChange={handleChange} />
+                </div>
+              </section>
+
+              <section className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 lg:p-10 shadow-2xl">
+                <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-emerald-500 mb-8 flex items-center gap-2">
+                  <GraduationCap size={16} /> Education Background
+                </h3>
+                <div className="space-y-6">
+                  <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 space-y-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                      <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Primary Qualification</span>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <InputField label="Highest Qualification" name="highestQual" value={formData.highestQual} onChange={handleChange} />
+                      <InputField label="Institution Name" name="uniName" value={formData.uniName} onChange={handleChange} />
+                      <InputField label="Field of Study" name="fieldStudy" value={formData.fieldStudy} onChange={handleChange} />
+                      <InputField label="CGPA / Grade" name="cgpa" value={formData.cgpa} onChange={handleChange} isMono />
+                      <InputField label="Graduation Year" name="gradYear" value={formData.gradYear} onChange={handleChange} isMono />
+                    </div>
+                  </div>
+
+                  <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 space-y-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="h-2 w-2 rounded-full bg-zinc-600" />
+                      <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Secondary Qualification</span>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <InputField label="Secondary Qualification" name="secondaryQual" value={formData.secondaryQual} onChange={handleChange} />
+                      <InputField label="School Name" name="schoolName" value={formData.schoolName} onChange={handleChange} />
+                      <InputField label="Results" name="results" value={formData.results} onChange={handleChange} isMono />
+                      <InputField label="Completion Year" name="completionYear" value={formData.completionYear} onChange={handleChange} isMono />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 lg:p-10 shadow-2xl">
+                <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-emerald-500 mb-8 flex items-center gap-2">
+                  <MapPin size={16} /> Contact Details
+                </h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="md:col-span-2">
+                    <InputField label="Current Address" name="address" value={formData.address} onChange={handleChange} />
+                  </div>
+                  <InputField label="City / Town" name="city" value={formData.city} onChange={handleChange} />
+                  <InputField label="Postcode" name="postcode" value={formData.postcode} onChange={handleChange} isMono />
+                  <SelectField label="State" name="state" value={formData.state} onChange={handleChange} options={["Wilayah Persekutuan", "Selangor", "Johor", "Penang", "Perak", "Sabah", "Sarawak"]} />
+                  <InputField label="Email Address" name="email" type="email" value={formData.email} onChange={handleChange} />
+                  <InputField label="Mobile Number" name="mobile" value={formData.mobile} onChange={handleChange} isMono />
+                  <InputField label="Home Number" name="homePhone" value={formData.homePhone} onChange={handleChange} isMono />
+                </div>
+              </section>
             </div>
-          </FormSection>
-
-          {/* WARNING FOOTER */}
-          <div className="p-6 rounded-3xl bg-amber-500/5 border border-amber-500/10 flex items-start gap-4">
-            <AlertCircle className="text-amber-500 shrink-0 mt-0.5" size={20} />
-            <p className="text-[10px] font-bold text-amber-200/60 uppercase leading-relaxed tracking-wide">
-              Discrepancies between this digital record and physical documents during verification will result in immediate disqualification.
-            </p>
           </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />
+          <div className="relative w-full max-w-lg bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+            <div className="p-8">
+              <div className="flex justify-between items-center mb-8">
+                <h3 className="text-xl font-black uppercase tracking-tighter flex items-center gap-2">
+                  <Paperclip className="text-emerald-500" size={20} />
+                  Upload <span className="text-emerald-500">Document.</span>
+                </h3>
+                <button onClick={() => setIsModalOpen(false)} className="text-zinc-500 hover:text-white transition-colors">
+                  <X size={24} />
+                </button>
+              </div>
+              <div className="space-y-6">
+                <div className="border-2 border-dashed border-white/10 rounded-3xl p-10 flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 hover:border-emerald-500/50 transition-all cursor-pointer group">
+                  <Upload size={40} className="text-zinc-600 group-hover:text-emerald-500 transition-colors mb-4" />
+                  <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-zinc-200">Click or drag to upload</p>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[9px] font-black text-emerald-500 uppercase tracking-widest block ml-1">Document Description</label>
+                  <textarea placeholder="E.g. Signed medical report..." className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-3 text-[12px] text-zinc-200 focus:outline-none focus:border-emerald-500/50 transition-all min-h-[100px] resize-none" />
+                </div>
+                <div className="flex gap-4 pt-4">
+                  <button onClick={() => setIsModalOpen(false)} className="flex-1 px-6 py-4 rounded-2xl bg-white/5 text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">Cancel</button>
+                  <button className="flex-1 px-6 py-4 rounded-2xl bg-emerald-500 text-black text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition-all shadow-lg">Initiate Upload</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-// DOCUMENT UPLOAD ROW COMPONENT
-function DocumentUploadRow({ title, filename, date, isMissing = false }: { title: string, filename: string, date?: string, isMissing?: boolean }) {
+function InputField({ label, name, value, onChange, type = "text", isMono = false }: InputFieldProps) {
   return (
-    <div className={`flex flex-col md:flex-row md:items-center justify-between p-4 rounded-2xl border transition-all ${isMissing ? 'bg-red-500/5 border-red-500/20' : 'bg-white/[0.02] border-white/5'}`}>
-      <div className="flex items-center gap-4 mb-4 md:mb-0">
-        <div className={`h-10 w-10 rounded-xl flex items-center justify-center ${isMissing ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
-          <Paperclip size={18} />
-        </div>
-        <div>
-          <p className="text-[10px] font-bold uppercase tracking-tight text-zinc-500 mb-1">{title}</p>
-          <p className={`text-[12px] font-bold ${isMissing ? 'text-red-400' : 'text-zinc-200'}`}>{filename}</p>
-          {!isMissing && <p className="text-[9px] font-medium text-zinc-600 uppercase mt-0.5">{date}</p>}
-        </div>
-      </div>
-      
-      <div className="flex items-center gap-2">
-        <button className="flex-1 md:flex-none px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-[10px] font-bold uppercase tracking-widest transition-all">
-          {isMissing ? 'Upload' : 'Replace'}
-        </button>
-        {!isMissing && (
-          <button className="p-2 rounded-lg hover:bg-red-500/10 text-zinc-600 hover:text-red-500 transition-all">
-            <Trash2 size={16} />
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function FormSection({ title, icon, children }: { title: string, icon: React.ReactNode, children: React.ReactNode }) {
-  return (
-    <section className="rounded-[2.5rem] bg-zinc-900 border border-white/5 p-8 lg:p-10 transition-all hover:border-white/10 shadow-2xl">
-      <div className="flex items-center gap-3 mb-10">
-        {icon}
-        <h3 className="text-[11px] font-bold uppercase tracking-[0.3em] text-white">{title}</h3>
-      </div>
-      {children}
-    </section>
-  );
-}
-
-function InputField({ label, placeholder, defaultValue, type = "text" }: { label: string, placeholder?: string, defaultValue?: string, type?: string }) {
-  return (
-    <div className="space-y-2 group">
-      <label className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest ml-1 group-focus-within:text-emerald-500 transition-colors">
+    <div className="group">
+      <label className="text-[9px] font-black text-zinc-500 uppercase tracking-widest block mb-1.5 ml-1 group-focus-within:text-emerald-500 transition-colors">
         {label}
       </label>
-      <input 
+      <input
         type={type}
-        defaultValue={defaultValue}
-        placeholder={placeholder}
-        className="w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-3.5 text-sm font-bold text-white placeholder:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all"
+        name={name}
+        value={value}
+        onChange={onChange}
+        className={`w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-[13px] font-bold text-zinc-200 transition-all focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/50 ${isMono ? "font-mono text-emerald-400" : "uppercase"}`}
       />
     </div>
   );
 }
 
-function SelectField({ label, options, defaultValue }: { label: string, options: string[], defaultValue?: string }) {
+function SelectField({ label, name, value, onChange, options }: SelectFieldProps) {
   return (
-    <div className="space-y-2 group">
-      <label className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest ml-1 group-focus-within:text-emerald-500 transition-colors">
+    <div className="group">
+      <label className="text-[9px] font-black text-zinc-500 uppercase tracking-widest block mb-1.5 ml-1 group-focus-within:text-emerald-500 transition-colors">
         {label}
       </label>
-      <div className="relative">
-        <select 
-          defaultValue={defaultValue}
-          className="w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-3.5 text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all appearance-none cursor-pointer"
-        >
-          {options.map((opt) => (
-            <option key={opt} value={opt} className="bg-zinc-900 text-white">{opt}</option>
-          ))}
-        </select>
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500">
-          <Plus size={14} className="rotate-45" />
-        </div>
+      <select
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="w-full bg-zinc-900 border border-white/10 rounded-xl px-4 py-3 text-[13px] font-bold text-zinc-200 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 appearance-none uppercase"
+      >
+        {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+      </select>
+    </div>
+  );
+}
+
+function FileEditItem({ label, filename }: { label: string; filename: string }) {
+  return (
+    <div className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all group">
+      <div className="overflow-hidden">
+        <p className="text-[8px] font-black text-zinc-600 uppercase tracking-tighter mb-0.5">{label}</p>
+        <p className="text-[10px] font-mono text-zinc-300 truncate">{filename}</p>
       </div>
+      <button className="p-2 text-zinc-600 hover:text-red-500 transition-colors">
+        <Trash2 size={14} />
+      </button>
     </div>
   );
 }

@@ -16,13 +16,13 @@ export default function RecruiterLayout({
         <header className="h-16 border-b border-white/5 px-8 flex items-center justify-between sticky top-0 bg-zinc-950/80 backdrop-blur-md z-50">
           <div className="flex items-center gap-4">
              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">Service Status: Operational</span>
+             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">System status: Online</span>
           </div>
           
           <div className="flex items-center gap-6">
             <div className="text-right">
               <span className="block text-[9px] font-bold text-zinc-600 uppercase tracking-widest">Branch Authorization</span>
-              <span className="block text-[11px] font-bold text-zinc-300 uppercase">Army (TDM) Headquarters</span>
+              <span className="block text-[11px] font-bold text-zinc-300 uppercase">Tentera Diraja Malaysia (TDM)</span>
             </div>
           </div>
         </header>

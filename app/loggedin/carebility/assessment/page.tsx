@@ -84,14 +84,20 @@ export default function AssessmentPage() {
   const ActiveIcon = getIcon(activeQ?.category || "General");
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col selection:bg-emerald-500/30">
+    <div className="relative min-h-screen bg-zinc-950 text-white font-sans flex flex-col selection:bg-emerald-500/30">
       
-      <div className="flex-grow flex flex-col">
+      {/* GLOBAL FIXED BACKGROUND (Camo Overlay) */}
+      <div 
+        className="fixed inset-0 z-0 bg-[url('/Camo.jpg')] bg-cover bg-center bg-fixed opacity-10" 
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 flex-grow flex flex-col">
         {!isFinished ? (
           <>
             {/* FLOATING PROGRESS DOCK */}
             <div className="fixed top-8 w-full px-6 z-40 pointer-events-none">
-              <div className="mx-auto max-w-2xl flex items-center gap-4 bg-zinc-900/80 backdrop-blur-xl p-4 rounded-3xl border border-white/5 shadow-2xl pointer-events-auto">
+              <div className="mx-auto max-w-2xl flex items-center gap-4 bg-zinc-900/90 backdrop-blur-xl p-4 rounded-3xl border border-white/5 shadow-2xl pointer-events-auto">
                 <Link href="/loggedin/dashboard" className="h-10 w-10 flex items-center justify-center text-zinc-500 hover:text-white transition-colors">
                     <ChevronLeft size={20} />
                 </Link>
@@ -118,7 +124,7 @@ export default function AssessmentPage() {
             <main className="flex-grow flex flex-col items-center px-6 pt-52 pb-20">
               <div className="relative z-10 w-full max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <div className="flex flex-col items-center text-center mb-12">
-                  <div className="h-20 w-20 rounded-3xl bg-zinc-900 border border-white/10 flex items-center justify-center text-emerald-400 mb-8 shadow-2xl">
+                  <div className="h-20 w-20 rounded-3xl bg-zinc-900/80 backdrop-blur-md border border-white/10 flex items-center justify-center text-emerald-400 mb-8 shadow-2xl">
                     <ActiveIcon size={40} />
                   </div>
                   <span className="text-[10px] font-black uppercase tracking-[0.5em] text-emerald-500/60 mb-4 flex items-center gap-2">
@@ -138,7 +144,7 @@ export default function AssessmentPage() {
                       className={`group flex items-center justify-between p-6 rounded-2xl border-2 transition-all duration-300 active:scale-[0.98] ${
                         answers[currentStep] === idx 
                         ? "bg-white border-white scale-[1.01]" 
-                        : "bg-zinc-900/50 border-white/5 hover:border-emerald-500/40 hover:bg-zinc-800/80"
+                        : "bg-zinc-900/60 backdrop-blur-md border-white/5 hover:border-emerald-500/40 hover:bg-zinc-800/80"
                       }`}
                     >
                       <span className={`font-black uppercase tracking-widest text-sm ${answers[currentStep] === idx ? "text-black" : "text-zinc-400"}`}>
@@ -170,7 +176,7 @@ export default function AssessmentPage() {
                           disabled={answers[currentStep] === undefined}
                           className="flex-1 h-14 bg-emerald-500 text-black font-black uppercase tracking-tighter rounded-xl disabled:opacity-50 hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] text-[11px]"
                        >
-                         Analyze Results
+                          Analyze Results
                        </button>
                     ) : (
                       <button 
@@ -203,7 +209,7 @@ export default function AssessmentPage() {
             <h1 className="text-4xl font-black uppercase tracking-tight text-white mb-2 leading-none">Analysis Complete</h1>
             <p className="text-zinc-500 font-mono text-xs uppercase tracking-[0.3em] mb-8">Branch Compatibility Synced</p>
             
-            <div className="w-full max-w-md bg-zinc-900/50 border border-white/5 rounded-[2.5rem] p-10 mb-10 backdrop-blur-md">
+            <div className="w-full max-w-md bg-zinc-900/70 border border-white/5 rounded-[2.5rem] p-10 mb-10 backdrop-blur-xl">
               {(() => {
                 const results = calculateResults();
                 const topMatch = results[0];
@@ -220,7 +226,7 @@ export default function AssessmentPage() {
                             <span>{r.percentage}%</span>
                           </div>
                           <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                              <div className="h-full bg-zinc-500 transition-all duration-1000" style={{ width: `${r.percentage}%` }} />
+                              <div className="h-full bg-emerald-500/50 transition-all duration-1000" style={{ width: `${r.percentage}%` }} />
                           </div>
                         </div>
                       ))}

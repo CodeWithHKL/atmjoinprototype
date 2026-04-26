@@ -10,134 +10,150 @@ import {
 
 export default function ProfilePage() {
   return (
-    <div className="min-h-screen bg-zinc-950 text-white p-4 lg:p-8 font-sans">
-      <div className="max-w-5xl mx-auto">
-        
-        {/* TOP HEADER */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
-          <div>
-            <h1 className="text-4xl font-black uppercase tracking-tighter">Personnel <span className="text-emerald-500">File.</span></h1>
-            <p className="text-zinc-500 text-[11px] mt-1 uppercase font-bold tracking-[0.2em]">Candidate ID: ATM-2026-99012</p>
-          </div>
-          
-          <Link href="/loggedin/profile/edit">
-            <button className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all flex items-center gap-2">
-              <Edit3 size={14} /> Update Information
-            </button>
-          </Link>
-        </div>
+    <div className="relative min-h-screen bg-zinc-950 text-white font-sans selection:bg-emerald-500/30">
+      
+      {/* GLOBAL FIXED BACKGROUND */}
+      <div 
+        className="fixed inset-0 z-0 bg-[url('/Camo.jpg')] bg-cover bg-center bg-fixed opacity-[0.08]" 
+        aria-hidden="true"
+      />
 
-        <div className="grid lg:grid-cols-12 gap-8">
+      <div className="relative z-10 p-4 lg:p-8">
+        <div className="max-w-5xl mx-auto">
           
-          {/* LEFT COLUMN: PROFILE & DOCUMENTS */}
-          <div className="lg:col-span-4 space-y-6">
+          {/* TOP HEADER */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+            <div>
+              <h1 className="text-4xl font-black uppercase tracking-tighter">Personnel <span className="text-emerald-500">File.</span></h1>
+              <p className="text-zinc-500 text-[11px] mt-1 uppercase font-bold tracking-[0.2em] font-mono">Candidate ID: ATM-2026-99012</p>
+            </div>
             
-            {/* APPLICANT PROFILE CARD */}
-            <div className="rounded-[2.5rem] bg-zinc-900 border border-white/5 p-8 text-center shadow-2xl">
-              <div className="relative mx-auto w-32 h-32 mb-6">
-                <div className="w-full h-full rounded-[2.5rem] bg-zinc-800 border border-zinc-950 overflow-hidden flex items-center justify-center">
-                   <User size={60} className="text-zinc-700" />
+            <Link href="/loggedin/profile/edit">
+              <button className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:bg-emerald-500 hover:text-black transition-all flex items-center gap-2 shadow-lg">
+                <Edit3 size={14} /> Update Information
+              </button>
+            </Link>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8">
+            
+            {/* LEFT COLUMN: PROFILE & DOCUMENTS */}
+            <div className="lg:col-span-4 space-y-6">
+              
+              {/* APPLICANT PROFILE CARD */}
+              <div className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 text-center shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500/20" />
+                <div className="relative mx-auto w-32 h-32 mb-6">
+                  <div className="w-full h-full rounded-[2.5rem] bg-zinc-900 border border-white/5 overflow-hidden flex items-center justify-center shadow-inner">
+                     <User size={60} className="text-zinc-800" />
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 h-8 w-8 bg-emerald-500 rounded-lg flex items-center justify-center text-black shadow-lg">
+                    <Fingerprint size={16} />
+                  </div>
+                </div>
+                <h2 className="text-xl font-black uppercase tracking-tight leading-tight">Ahmad bin Mustaffa</h2>
+                <p className="text-emerald-500 text-[10px] font-black uppercase tracking-[0.2em] mt-2">Active Applicant Profile</p>
+                
+                <div className="mt-8 pt-8 border-t border-white/10">
+                  <p className="text-[10px] font-bold text-zinc-500 leading-relaxed italic uppercase tracking-tighter">
+                    Ensure all educational certificates uploaded match the original documents for phase 01 verification.
+                  </p>
                 </div>
               </div>
-              <h2 className="text-xl font-black uppercase tracking-tight leading-tight">Ahmad bin Mustaffa</h2>
-              <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.2em] mt-2">Active Applicant Profile</p>
-              
-              <div className="mt-8 pt-8 border-t border-white/5">
-                <p className="text-[11px] font-medium text-zinc-500 leading-relaxed italic">
-                  Ensure all educational certificates uploaded match the original documents for phase 01 verification.
-                </p>
+
+              {/* DOCUMENTS CARD (DIGITAL DOSSIER) */}
+              <div className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 shadow-2xl">
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 mb-6 flex items-center gap-2">
+                  <FileText size={14} className="text-emerald-500" /> Digital Dossier
+                </h3>
+                
+                <div className="space-y-3">
+                  <DocumentItem label="Identification Card" filename="ic_front_back.pdf" />
+                  <DocumentItem label="Birth Certificate" filename="birth_cert_final.pdf" />
+                  <DocumentItem label="Degree Transcript" filename="official_transcript_um.pdf" />
+                  <DocumentItem label="SPM Certificate" filename="spm_results_2016.pdf" />
+                </div>
               </div>
             </div>
 
-            {/* DOCUMENTS CARD (DIGITAL DOSSIER) */}
-            <div className="rounded-[2.5rem] bg-zinc-900 border border-white/5 p-8 shadow-2xl">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400 mb-6 flex items-center gap-2">
-                <FileText size={14} className="text-emerald-500" /> Digital Dossier
-              </h3>
+            {/* RIGHT COLUMN: DATA DOSSIER */}
+            <div className="lg:col-span-8 space-y-8">
               
-              <div className="space-y-3">
-                <DocumentItem label="Identification Card" filename="ic_front_back.pdf" />
-                <DocumentItem label="Birth Certificate" filename="birth_cert_final.pdf" />
-                <DocumentItem label="Degree Transcript" filename="official_transcript_um.pdf" />
-                <DocumentItem label="SPM Certificate" filename="spm_results_2016.pdf" />
-              </div>
+              {/* PERSONAL INFO SECTION */}
+              <section className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 lg:p-10 shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 opacity-5">
+                  <Fingerprint size={120} />
+                </div>
+                <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-emerald-500 mb-8 flex items-center gap-2">
+                  <Fingerprint size={16} /> Personal Information
+                </h3>
+                
+                <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 relative z-10">
+                  <DataField label="Full Name (As per IC)" value="Ahmad bin Mustaffa" />
+                  <DataField label="Identity Card Number" value="990102-14-XXXX" isMono />
+                  <DataField label="Date of Birth" value="02 JAN 1999" isMono />
+                  <DataField label="Birth Certificate Number" value="AA 882012" isMono />
+                  <DataField label="Citizenship" value="Malaysian" />
+                  <DataField label="Gender" value="Male" />
+                  <DataField label="Race" value="Malay" />
+                  <DataField label="Ethnicity" value="Bumiputera" />
+                  <DataField label="Religion" value="Islam" />
+                  <DataField label="Marital Status" value="Single" />
+                  <DataField label="Country of Birth" value="Malaysia" />
+                  <DataField label="Place of Birth" value="Kuala Lumpur" />
+                </div>
+              </section>
+
+              {/* EDUCATION BACKGROUND SECTION */}
+              <section className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 lg:p-10 shadow-2xl">
+                <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-emerald-500 mb-8 flex items-center gap-2">
+                  <GraduationCap size={16} /> Education Background
+                </h3>
+                
+                <div className="space-y-8">
+                  <div className="relative pl-8 border-l-2 border-emerald-500/20">
+                    <div className="absolute left-[-7px] top-0 h-3 w-3 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <DataField label="Highest Qualification" value="Bachelor's Degree (Hons)" />
+                      <DataField label="Institution Name" value="Universiti Malaya" />
+                      <DataField label="Field of Study" value="Computer Science (Cybersecurity)" />
+                      <DataField label="CGPA / Grade" value="3.85 / 4.00" isMono />
+                      <DataField label="Graduation Year" value="2022" isMono />
+                    </div>
+                  </div>
+
+                  <div className="relative pl-8 border-l-2 border-white/5">
+                    <div className="absolute left-[-7px] top-0 h-3 w-3 rounded-full bg-zinc-800" />
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <DataField label="Secondary Qualification" value="Sijil Pelajaran Malaysia (SPM)" />
+                      <DataField label="School Name" value="SMK Victoria, Kuala Lumpur" />
+                      <DataField label="Results" value="9A 1B" isMono />
+                      <DataField label="Completion Year" value="2016" isMono />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* ADDRESS INFO SECTION */}
+              <section className="rounded-[2.5rem] bg-black/40 backdrop-blur-2xl border border-white/10 p-8 lg:p-10 shadow-2xl">
+                <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-emerald-500 mb-8 flex items-center gap-2">
+                  <MapPin size={16} /> Address & Contact Details
+                </h3>
+                
+                <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">
+                  <div className="md:col-span-2">
+                    <DataField label="Current Address" value="No. 24, Jalan Wangsa Maju, Seksyen 2, Setapak" />
+                  </div>
+                  <DataField label="City / Town" value="Kuala Lumpur" />
+                  <DataField label="Postcode" value="53300" isMono />
+                  <DataField label="State" value="Wilayah Persekutuan" />
+                  <DataField label="Email Address" value="ahmad.m@email.com" />
+                  <DataField label="Mobile Phone Number" value="+60 12-345 6789" isMono />
+                  <DataField label="Home Phone Number" value="+60 3-4142 XXXX" isMono />
+                </div>
+              </section>
+
             </div>
-          </div>
-
-          {/* RIGHT COLUMN: DATA DOSSIER */}
-          <div className="lg:col-span-8 space-y-8">
-            
-            {/* PERSONAL INFO SECTION */}
-            <section className="rounded-[2.5rem] bg-zinc-900 border border-white/5 p-8 lg:p-10 shadow-2xl">
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.3em] text-emerald-500 mb-8 flex items-center gap-2">
-                <Fingerprint size={16} /> Personal Information
-              </h3>
-              
-              <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">
-                <DataField label="Full Name (As per IC)" value="Ahmad bin Mustaffa" />
-                <DataField label="Identity Card Number" value="990102-14-XXXX" isMono />
-                <DataField label="Date of Birth" value="02 JAN 1999" />
-                <DataField label="Birth Certificate Number" value="AA 882012" isMono />
-                <DataField label="Citizenship" value="Malaysian" />
-                <DataField label="Gender" value="Male" />
-                <DataField label="Race" value="Malay" />
-                <DataField label="Ethnicity" value="Bumiputera" />
-                <DataField label="Religion" value="Islam" />
-                <DataField label="Marital Status" value="Single" />
-                <DataField label="Country of Birth" value="Malaysia" />
-                <DataField label="Place of Birth" value="Kuala Lumpur" />
-              </div>
-            </section>
-
-            {/* EDUCATION BACKGROUND SECTION */}
-            <section className="rounded-[2.5rem] bg-zinc-900 border border-white/5 p-8 lg:p-10 shadow-2xl">
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.3em] text-emerald-500 mb-8 flex items-center gap-2">
-                <GraduationCap size={16} /> Education Background
-              </h3>
-              
-              <div className="space-y-8">
-                <div className="relative pl-8 border-l border-white/10">
-                  <div className="absolute left-[-5px] top-0 h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <DataField label="Highest Qualification" value="Bachelor's Degree (Hons)" />
-                    <DataField label="Institution Name" value="Universiti Malaya" />
-                    <DataField label="Field of Study" value="Computer Science (Cybersecurity)" />
-                    <DataField label="CGPA / Grade" value="3.85 / 4.00" isMono />
-                    <DataField label="Graduation Year" value="2022" />
-                  </div>
-                </div>
-
-                <div className="relative pl-8 border-l border-white/10">
-                  <div className="absolute left-[-5px] top-0 h-2 w-2 rounded-full bg-zinc-700" />
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <DataField label="Secondary Qualification" value="Sijil Pelajaran Malaysia (SPM)" />
-                    <DataField label="School Name" value="SMK Victoria, Kuala Lumpur" />
-                    <DataField label="Results" value="9A 1B" isMono />
-                    <DataField label="Completion Year" value="2016" />
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* ADDRESS INFO SECTION */}
-            <section className="rounded-[2.5rem] bg-zinc-900 border border-white/5 p-8 lg:p-10 shadow-2xl">
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.3em] text-emerald-500 mb-8 flex items-center gap-2">
-                <MapPin size={16} /> Address & Contact Details
-              </h3>
-              
-              <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">
-                <div className="md:col-span-2">
-                  <DataField label="Current Address" value="No. 24, Jalan Wangsa Maju, Seksyen 2, Setapak" />
-                </div>
-                <DataField label="City / Town" value="Kuala Lumpur" />
-                <DataField label="Postcode" value="53300" isMono />
-                <DataField label="State" value="Wilayah Persekutuan" />
-                <DataField label="Email Address" value="ahmad.m@email.com" />
-                <DataField label="Mobile Phone Number" value="+60 12-345 6789" isMono />
-                <DataField label="Home Phone Number" value="+60 3-4142 XXXX" isMono />
-              </div>
-            </section>
-
           </div>
         </div>
       </div>
@@ -147,15 +163,15 @@ export default function ProfilePage() {
 
 function DocumentItem({ label, filename }: { label: string, filename: string }) {
   return (
-    <div className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors group">
+    <div className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-emerald-500/30 transition-all group">
       <div className="flex items-center gap-3 overflow-hidden">
         <Paperclip size={14} className="text-zinc-600 group-hover:text-emerald-500 transition-colors shrink-0" />
         <div className="overflow-hidden">
-          <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-tight leading-none mb-1">{label}</p>
-          <p className="text-[11px] font-medium text-zinc-300 truncate">{filename}</p>
+          <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest leading-none mb-1.5">{label}</p>
+          <p className="text-[11px] font-bold text-zinc-300 truncate font-mono tracking-tighter">{filename}</p>
         </div>
       </div>
-      <button className="p-2 rounded-lg hover:bg-emerald-500/10 text-zinc-500 hover:text-emerald-500 transition-all shrink-0">
+      <button className="p-2 rounded-lg bg-white/5 hover:bg-emerald-500 text-zinc-500 hover:text-black transition-all shrink-0">
         <Download size={14} />
       </button>
     </div>
@@ -164,11 +180,11 @@ function DocumentItem({ label, filename }: { label: string, filename: string }) 
 
 function DataField({ label, value, isMono = false }: { label: string, value: string, isMono?: boolean }) {
   return (
-    <div className="border-b border-white/[0.03] pb-2 group">
-      <label className="text-[9px] font-bold text-zinc-600 uppercase tracking-[0.15em] block mb-1 group-hover:text-zinc-500 transition-colors">
+    <div className="border-b border-white/[0.05] pb-2 group">
+      <label className="text-[9px] font-black text-zinc-600 uppercase tracking-[0.2em] block mb-1.5 group-hover:text-emerald-500/50 transition-colors">
         {label}
       </label>
-      <p className={`text-[13px] font-bold text-zinc-200 tracking-tight ${isMono ? "font-mono tracking-widest text-emerald-400/80" : "uppercase"}`}>
+      <p className={`text-[13px] font-bold text-zinc-200 tracking-tight ${isMono ? "font-mono tracking-widest text-emerald-400/90" : "uppercase"}`}>
         {value}
       </p>
     </div>
